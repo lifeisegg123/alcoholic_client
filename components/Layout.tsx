@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
+import styled from "@emotion/styled";
 import { ReactNode } from "react";
-import { Layout, Menu, Dropdown, Input } from "antd";
+import { Layout, Menu, Dropdown } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
@@ -48,18 +48,18 @@ const AppLayout = ({ children }: Props) => (
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <Header css={headerCss}>
+    <StyledHeader>
       <Link href="/">
         <a>
           <h1>주당 이선생</h1>
         </a>
       </Link>
-      <Dropdown overlay={menu} css={iconCss}>
-        <MenuOutlined />
+      <Dropdown overlay={menu}>
+        <StyledMenuIcon />
       </Dropdown>
-    </Header>
+    </StyledHeader>
 
-    <Content css={contentCss}>{children}</Content>
+    <StyledContent>{children}</StyledContent>
 
     <Footer>
       <hr />
@@ -70,7 +70,7 @@ const AppLayout = ({ children }: Props) => (
 
 export default AppLayout;
 
-const headerCss = css`
+const StyledHeader = styled(Header)`
   position: fixed;
   top: 0;
   display: flex;
@@ -82,15 +82,16 @@ const headerCss = css`
   & h1 {
     white-space: nowrap;
     color: #c36827;
+    font-size: ${(props) => props.theme.fontSize.title};
   }
   border-bottom: 1px solid black;
 `;
 
-const iconCss = css`
+const StyledMenuIcon = styled(MenuOutlined)`
   font-size: 20px;
 `;
 
-const contentCss = css`
+const StyledContent = styled(Content)`
   padding: 0 50px;
   margin-top: 80px;
 `;

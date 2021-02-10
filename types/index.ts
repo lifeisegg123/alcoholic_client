@@ -1,5 +1,6 @@
 export interface Alcohol {
   name: string;
+  thumbnail: string;
   rating: number;
   ratingCount: number;
   desc: string;
@@ -14,6 +15,7 @@ export interface User {
   email: string;
   nickname: string;
   profileImg?: string;
+  reviews?: Review[];
 }
 
 export interface Review {

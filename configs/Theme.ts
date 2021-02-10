@@ -5,8 +5,8 @@ const theme = {
     big: "30px",
   },
   fontSize: {
-    title: "1.5em",
-    subTitle: "1.3em",
+    title: "1.7em",
+    subTitle: "1.5em",
     body: "1em",
   },
   colors: {

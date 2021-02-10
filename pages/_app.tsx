@@ -7,12 +7,12 @@ import theme from "configs/Theme";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <AppLayout>
-      <GlobalStyle />
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <AppLayout>
+        <GlobalStyle />
         <Component {...pageProps} />
-      </ThemeProvider>
-    </AppLayout>
+      </AppLayout>
+    </ThemeProvider>
   );
 };
 
