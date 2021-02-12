@@ -4,6 +4,7 @@ import { Layout, Menu, Dropdown } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
+import { desktopCss } from "styles/display";
 
 const { Header, Content, Footer } = Layout;
 
@@ -47,6 +48,11 @@ const AppLayout = ({ children }: Props) => (
       <title>주당 이선생</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css"
+      />
     </Head>
     <StyledHeader>
       <Link href="/">
@@ -92,6 +98,11 @@ const StyledMenuIcon = styled(MenuOutlined)`
 `;
 
 const StyledContent = styled(Content)`
-  padding: 0 50px;
+  padding: 50px 0;
+  margin: 0 auto;
   margin-top: 80px;
+  width: 90%;
+  ${desktopCss({
+    width: "70%",
+  })};
 `;

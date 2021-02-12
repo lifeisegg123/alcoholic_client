@@ -1,4 +1,5 @@
 export interface Alcohol {
+  id: string;
   name: string;
   thumbnail: string;
   rating: number;
@@ -6,12 +7,13 @@ export interface Alcohol {
   desc: string;
   category: number;
   alcoholPercentage: number;
-  sellingAt: string;
-  recommandedFood: string[];
+  sellingAt?: string;
+  recommandedFood?: string[];
   ingredient: string;
 }
 
 export interface User {
+  id: string;
   email: string;
   nickname: string;
   profileImg?: string;
@@ -19,5 +21,6 @@ export interface User {
 }
 
 export interface Review {
-  desc: string;
+  desc?: string;
+  rate?: number;
 }
