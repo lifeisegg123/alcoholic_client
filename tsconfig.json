@@ -19,7 +19,7 @@
     "target": "es5",
     "jsxImportSource": "@emotion/react",
     "baseUrl": ".",
-    "typeRoots": ["src/types"]
+    "typeRoots": ["types"]
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx"]

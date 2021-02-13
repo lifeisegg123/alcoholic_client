@@ -1,5 +1,4 @@
 import AlcoholForm from "components/alcohol/AlcoholForm";
-import Link from "next/link";
 
 const IndexPage = () => (
   <>

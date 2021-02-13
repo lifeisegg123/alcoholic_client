@@ -17,7 +17,7 @@ export const horizontalMarginAuto = css`
 `;
 
 export const desktopCss = (content: any) => css`
-  @media screen and (min-width: 567px) {
+  @media screen and (min-width: 768px) {
     ${content}
   }
 `;

@@ -1,5 +1,5 @@
 export interface Alcohol {
-  id: string;
+  id?: string;
   name: string;
   thumbnail: string;
   rating: number;
@@ -8,14 +8,15 @@ export interface Alcohol {
   category: number;
   alcoholPercentage: number;
   sellingAt?: string;
-  recommandedFood?: string[];
+  recommandedFood?: string;
   ingredient: string;
 }
 
 export interface User {
-  id: string;
+  id?: string;
   email: string;
   nickname: string;
+  password?: string;
   profileImg?: string;
   reviews?: Review[];
 }

@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.1.5",
     "antd": "^4.12.2",
     "antd-img-crop": "^3.13.2",
+    "axios": "^0.21.1",
     "emotion-reset": "^3.0.0",
     "faker": "^5.3.1",
     "next": "latest",
