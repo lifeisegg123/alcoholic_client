@@ -1,9 +1,22 @@
-import styled from "@emotion/styled";
-import { Button, Cascader, Form, Input, InputNumber, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
 import { useState } from "react";
-import { horizontalMarginAuto } from "styles/display";
+import { useMutation } from "react-query";
+
+import styled from "@emotion/styled";
+import {
+  Button,
+  Cascader,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Upload,
+} from "antd";
 import { UploadChangeParam, UploadFile } from "antd/lib/upload/interface";
+import ImgCrop from "antd-img-crop";
+
+import { horizontalMarginAuto } from "styles/display";
+import { createAlcoholApi } from "api/alcohol";
+import { generateFormData } from "utils/generateFormData";
 
 const categoryOptions = [
   {
@@ -41,18 +54,39 @@ const categoryOptions = [
 ];
 
 const AlcoholForm = () => {
+  const createAlcoholMutation = useMutation(createAlcoholApi);
+
   const [form] = Form.useForm();
-  const handleSubmit = (value: unknown) => {
-    console.log(value);
-  };
   const [image, setImage] = useState<UploadFile<any>[]>();
   const handleUploadImage = (info: UploadChangeParam<UploadFile<any>>) => {
     console.log(info);
     setImage([info.file]);
+    form.setFieldsValue({ thumbnail: info.file.originFileObj });
   };
+
+  const handleSubmit = async (values: any) => {
+    if (!image) return message.error("이미지를 업로드해주세요.");
+    try {
+      const data = {
+        ...values,
+        category: values.category[values.category.length - 1],
+      };
+      const formData = generateFormData(data);
+      console.dir(formData.get("thumbnail"));
+      await createAlcoholMutation.mutateAsync(formData);
+    } catch (error) {
+      console.log(error);
+      message.error("오류가 발생하였습니다.");
+    }
+  };
+
   return (
     <StyledForm onFinish={handleSubmit} form={form}>
-      <Form.Item label="제품사진" name="thumbnail">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="제품사진"
+        name="thumbnail"
+      >
         <ImgCrop grid quality={1} rotate>
           <Upload
             accept="image/*"
@@ -64,16 +98,32 @@ const AlcoholForm = () => {
           </Upload>
         </ImgCrop>
       </Form.Item>
-      <Form.Item label="제품명" name="name">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="제품명"
+        name="name"
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="카테고리" name="category">
-        <Cascader options={categoryOptions} />
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="카테고리"
+        name="category"
+      >
+        <Cascader expandTrigger="hover" options={categoryOptions} />
       </Form.Item>
-      <Form.Item label="설명" name="desc">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="설명"
+        name="desc"
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="알콜도수" name="alcoholPercentage">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="알콜도수"
+        name="alcoholPercentage"
+      >
         <InputNumber
           formatter={(value) => `${value}%`}
           parser={(value) => value!.replace("%", "")}
@@ -81,13 +131,25 @@ const AlcoholForm = () => {
           max={100}
         />
       </Form.Item>
-      <Form.Item label="판매처" name="sellingAt">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="판매처"
+        name="sellingAt"
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="원료" name="ingredient">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="원료"
+        name="ingredient"
+      >
         <Input />
       </Form.Item>
-      <Form.Item label="추천안주" name="recommandedFood">
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="추천안주"
+        name="recommandedFood"
+      >
         <Input />
       </Form.Item>
       <Button
@@ -95,6 +157,7 @@ const AlcoholForm = () => {
         size="large"
         type="primary"
         htmlType="submit"
+        loading={createAlcoholMutation.isLoading}
       >
         등록
       </Button>
