@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import { Image, Card } from "antd";
+import { backUrl } from "configs/environment";
 import Link from "next/link";
 import { Alcohol } from "types";
 
@@ -15,7 +16,9 @@ const AlcoholListItem = ({
       <Card
         css={cardCss}
         hoverable
-        cover={<Image preview={false} src={thumbnail} alt={name} />}
+        cover={
+          <Image preview={false} src={`${backUrl}/${thumbnail}`} alt={name} />
+        }
       >
         <Card.Meta
           title={name}

@@ -18,7 +18,7 @@ const InfoContainer = ({ title, desc }: InfoContainerProps) => (
 type AlcoholInfoBoxProps = {
   alcoholPercentage: number;
   ingredient: string;
-  recommandedFood?: string[];
+  recommandedFood?: string;
   sellingAt?: string;
 };
 const AlcoholInfoBox = ({

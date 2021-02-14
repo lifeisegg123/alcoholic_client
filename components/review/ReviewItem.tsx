@@ -1,12 +1,12 @@
 import { Avatar, Comment } from "antd";
-import { Review, User } from "types";
+import { Review } from "types";
 
 type ReviewItemProps = {
   review: Review;
-  user?: User;
 };
 
-const ReviewItem = ({ review, user }: ReviewItemProps) => {
+const ReviewItem = ({ review }: ReviewItemProps) => {
+  const { user } = review;
   return (
     <Comment
       author={user?.nickname}

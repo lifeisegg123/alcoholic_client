@@ -20,6 +20,11 @@ export const loginWithEmailApi = async (data: User) => {
   return await axios.post(url + "/loginLocal", data);
 };
 
+export const logoutApi = async () => {
+  return await axios.post(url + "/logout");
+};
+
 export const getUserApi = async () => {
-  return await axios.get(url);
+  const { data } = await axios.get(url);
+  return data;
 };

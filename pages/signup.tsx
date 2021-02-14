@@ -51,7 +51,6 @@ const Signup = () => {
   };
 
   const signupMutate = useMutation(signupApi);
-
   const handleRegister = async ({ email, password, nickname }: User) => {
     if (isEmailExist) {
       message.error("이메일을 변경해주세요.");
@@ -62,7 +61,7 @@ const Signup = () => {
     try {
       const res = await signupMutate.mutateAsync({ email, password, nickname });
       console.log(res);
-      router.push("/");
+      router.push("/login");
     } catch (error) {
       console.error(error);
       message.error("오류가 발생하였습니다.");

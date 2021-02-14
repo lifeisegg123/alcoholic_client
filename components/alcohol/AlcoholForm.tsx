@@ -20,24 +20,18 @@ import { generateFormData } from "utils/generateFormData";
 
 const categoryOptions = [
   {
-    value: 1000,
+    value: 1100,
     label: "위스키",
     children: [
       {
-        value: 1010,
+        value: 1110,
         label: "싱글 몰트 위스키",
-        children: [
-          {
-            value: 1011,
-            label: "뭐시깽이",
-          },
-        ],
       },
     ],
   },
   {
-    value: 1100,
-    label: "진",
+    value: 1200,
+    label: "럼",
     children: [
       {
         value: "nanjing",
@@ -74,6 +68,7 @@ const AlcoholForm = () => {
       const formData = generateFormData(data);
       console.dir(formData.get("thumbnail"));
       await createAlcoholMutation.mutateAsync(formData);
+      message.success("등록이 완료되었습니다.");
     } catch (error) {
       console.log(error);
       message.error("오류가 발생하였습니다.");
@@ -87,14 +82,14 @@ const AlcoholForm = () => {
         label="제품사진"
         name="thumbnail"
       >
-        <ImgCrop grid quality={1} rotate>
+        <ImgCrop grid quality={1} rotate zoom={false}>
           <Upload
             accept="image/*"
             listType="picture-card"
             onChange={handleUploadImage}
             fileList={image}
           >
-            업로드
+            이미지 업로드
           </Upload>
         </ImgCrop>
       </Form.Item>
@@ -118,6 +113,17 @@ const AlcoholForm = () => {
         name="desc"
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        rules={[{ required: true, message: "항목을 입력해주세요." }]}
+        label="가격"
+        name="price"
+      >
+        <InputNumber
+          formatter={(value) => `${value}₩`}
+          parser={(value) => value!.replace("₩", "")}
+          min={0}
+        />
       </Form.Item>
       <Form.Item
         rules={[{ required: true, message: "항목을 입력해주세요." }]}

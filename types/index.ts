@@ -10,6 +10,8 @@ export interface Alcohol {
   sellingAt?: string;
   recommandedFood?: string;
   ingredient: string;
+  reviews: Review[];
+  ratings: Rating[];
 }
 
 export interface User {
@@ -22,6 +24,14 @@ export interface User {
 }
 
 export interface Review {
-  desc?: string;
-  rate?: number;
+  desc: string;
+  userId?: string;
+  alcoholId: string;
+  user?: User;
+}
+
+export interface Rating {
+  rating: number;
+  userId?: string;
+  alcoholId: string;
 }

@@ -10,9 +10,10 @@ interface AlcoholListProps {
 const AlcoholList = ({ alcohols }: AlcoholListProps) => {
   return (
     <Space css={spaceCss} size={[10, 40]} wrap>
-      {alcohols.map((alcohol) => (
-        <AlcoholListItem key={alcohol.id} alcohol={alcohol} />
-      ))}
+      {alcohols.length &&
+        alcohols.map((alcohol) => (
+          <AlcoholListItem key={alcohol.id} alcohol={alcohol} />
+        ))}
     </Space>
   );
 };

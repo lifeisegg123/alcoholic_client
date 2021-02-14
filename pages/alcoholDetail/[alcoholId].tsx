@@ -2,29 +2,33 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/dist/client/router";
 
 import AlcoholDetail from "components/alcohol/AlcoholDetail";
-import { fakeAlcoholGenerator } from "fakeData/alcoholFakeData";
-import { fakeReviewGenerator } from "fakeData/reviewFakeData";
 import ReviewContainer from "components/review/ReviewContainer";
+import { getAlcoholDetailApi } from "api/alcohol";
+import { Alcohol, Review } from "types";
 
-const alcohol = fakeAlcoholGenerator();
-const reviews = new Array(10).fill(fakeReviewGenerator());
+type AlcoholDetailPageProps = {
+  alcohol: Alcohol;
+  reviews: Review[];
+};
 
-const AlcoholDetailPage = () => {
-  const route = useRouter();
-  const { alcoholId } = route.query;
-  console.log(alcoholId, "alcoholId");
+const AlcoholDetailPage = ({ alcohol, reviews }: AlcoholDetailPageProps) => {
+  const router = useRouter();
+  const { alcoholId } = router.query;
   return (
     <>
       <AlcoholDetail alcohol={alcohol} />
-      <ReviewContainer reviews={reviews} />
+      <ReviewContainer reviews={reviews} alcoholId={alcoholId as string} />
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { alcoholId } = ctx.query;
+  const data = await getAlcoholDetailApi(alcoholId as string)();
   return {
     props: {
-      data: null,
+      alcohol: data,
+      reviews: data.reviews,
     },
   };
 };

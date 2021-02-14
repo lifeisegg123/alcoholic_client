@@ -1,5 +1,5 @@
 import { Alcohol } from "types";
-import { Card, Image, Popconfirm, Rate, Space } from "antd";
+import { Card, Image, message, Popconfirm, Rate, Space } from "antd";
 import styled from "@emotion/styled";
 import { StarFilled } from "@ant-design/icons";
 import { flexColCss, flexRowCss, horizontalMarginAuto } from "styles/display";
@@ -7,6 +7,10 @@ import { useState } from "react";
 import AlcoholInfoBox from "./AlcoholInfoBox";
 import { css } from "@emotion/react";
 import Paragraph from "antd/lib/typography/Paragraph";
+import { backUrl } from "configs/environment";
+import { useMutation } from "react-query";
+import { addRatingApi } from "api/rating";
+import { useUser } from "hooks/useUser";
 
 type AlcoholDetailProps = {
   alcohol: Alcohol;
@@ -23,19 +27,36 @@ const AlcoholDetail = ({
     sellingAt,
     recommandedFood,
     ingredient,
+    ratings,
   },
 }: AlcoholDetailProps) => {
-  const [rateValue, setRateValue] = useState(0);
-  const handleRateChange = (
-    event: React.MouseEvent<HTMLElement, MouseEvent> | undefined
-  ) => {
-    console.log(event);
+  const [user, isLoggedIn] = useUser();
+  const hasRating = ratings.filter((v) => v.userId === user.id)[0].rating;
+  const [rateValue, setRateValue] = useState(hasRating || 0);
+  //TODO: 이미 별점 줬을때 변경 처리
+  const ratingMuation = useMutation(addRatingApi);
+  const handleRateClick = (value: number) => {
+    if (!isLoggedIn) return message.error("로그인 후 시도해주세요");
+    setRateValue(value);
+  };
+  const handleRateChange = async () => {
+    try {
+      const res = await ratingMuation.mutateAsync({
+        rating: rateValue,
+        alcoholId: "1",
+      });
+      console.log(res);
+      message.success("별점이 등록되었습니다.");
+    } catch (error) {
+      console.log(error);
+      message.error("별점등록을 실패하였습니다.");
+    }
   };
   return (
     <Wrapper>
       <Card css={flexColCss}>
         <Space direction="vertical">
-          <Image preview={false} src={thumbnail} alt={name} />
+          <Image preview={false} src={`${backUrl}/${thumbnail}`} alt={name} />
           <div>
             <Space>
               <span>
@@ -52,18 +73,15 @@ const AlcoholDetail = ({
             css={popconCss}
             title="별점을 주시겠습니까?"
             onConfirm={handleRateChange}
-            onCancel={() => setRateValue(0)}
+            onCancel={() => setRateValue(hasRating || 0)}
             okText="Yes"
             cancelText="No"
             placement="topLeft"
+            disabled={!isLoggedIn}
           >
             <p>별점주기</p>
             <a href="#">
-              <Rate
-                allowHalf
-                value={rateValue}
-                onChange={(value) => setRateValue(value)}
-              />
+              <Rate allowHalf value={rateValue} onChange={handleRateClick} />
             </a>
           </Popconfirm>
           <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "더보기" }}>

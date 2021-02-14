@@ -1,18 +1,27 @@
 import { css } from "@emotion/react";
 import { Button, Input } from "antd";
+import { addReviewApi } from "api/review";
 import { useState } from "react";
+import { useMutation } from "react-query";
 import { flexRowCss } from "styles/display";
 
-type ReviewInput = {};
+type ReviewInput = {
+  alcoholId: string;
+};
 
-const ReviewInput = ({}: ReviewInput) => {
+const ReviewInput = ({ alcoholId }: ReviewInput) => {
   const [review, setReview] = useState("");
   const handleReviewChange = (event: any) => {
-    const { target: value } = event;
+    const {
+      target: { value },
+    } = event;
     setReview(value);
-    console.log(value);
   };
-  const handleSubmitReview = () => {};
+  const reviewMutation = useMutation(addReviewApi);
+  const handleSubmitReview = async () => {
+    const res = await reviewMutation.mutateAsync({ desc: review, alcoholId });
+    console.log(res);
+  };
   return (
     <div css={wrapperCss}>
       <Input.TextArea

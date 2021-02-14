@@ -7,9 +7,10 @@ import ReviewItem from "./ReviewItem";
 
 type ReviewContainerProps = {
   reviews: Review[];
+  alcoholId: string;
 };
 
-const ReviewContainer = ({ reviews }: ReviewContainerProps) => {
+const ReviewContainer = ({ reviews, alcoholId }: ReviewContainerProps) => {
   return (
     <Wrapper>
       <Card>
@@ -23,7 +24,7 @@ const ReviewContainer = ({ reviews }: ReviewContainerProps) => {
             </li>
           )}
         />
-        <ReviewInput />
+        <ReviewInput alcoholId={alcoholId} />
       </Card>
     </Wrapper>
   );

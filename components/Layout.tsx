@@ -5,22 +5,27 @@ import { MenuOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
 import { desktopCss } from "styles/display";
-import { useQuery } from "react-query";
-import { getUserApi } from "api/auth";
+import { useQuery, useQueryClient } from "react-query";
+import { getUserApi, logoutApi } from "api/auth";
 import { User } from "types";
 
 const { Header, Content, Footer } = Layout;
 
-const menu = (user: User, isLoggedIn: boolean) => (
+const menu = (user: User, isLoggedIn: boolean, logout: () => {}) => (
   <Menu>
-    {isLoggedIn ? (
-      <Menu.Item>
-        <Link href={`/userProfile/${user.id}`}>
-          <a>
-            <Avatar src={user.profileImg} />
-          </a>
-        </Link>
-      </Menu.Item>
+    {isLoggedIn && user ? (
+      <>
+        <Menu.Item>
+          <Link href={`/userProfile/${user.id}`}>
+            <a>
+              <Avatar src={user.profileImg} />
+            </a>
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <a onClick={logout}>로그아웃</a>
+        </Menu.Item>
+      </>
     ) : (
       <>
         <Menu.Item>
@@ -69,11 +74,16 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
-  const { data, isSuccess: isLoggedIn } = useQuery("auth/user", getUserApi, {
+  const { data, isSuccess: isLoggedIn } = useQuery("user/auth", getUserApi, {
     cacheTime: Infinity,
-    refetchOnWindowFocus: false,
   });
-  console.log("userData", data);
+  const queryClient = useQueryClient();
+  const logout = async () => {
+    await logoutApi();
+    queryClient.setQueryData("user/auth", null);
+    queryClient.resetQueries(["user/auth"]);
+  };
+
   return (
     <div>
       <Head>
@@ -92,7 +102,7 @@ const AppLayout = ({ children }: Props) => {
             <h1>주당 이선생</h1>
           </a>
         </Link>
-        <Dropdown overlay={menu(data?.data, isLoggedIn)}>
+        <Dropdown overlay={menu(data, isLoggedIn, logout)}>
           <StyledMenuIcon />
         </Dropdown>
       </StyledHeader>
