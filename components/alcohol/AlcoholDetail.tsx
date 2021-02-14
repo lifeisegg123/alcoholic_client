@@ -31,7 +31,8 @@ const AlcoholDetail = ({
   },
 }: AlcoholDetailProps) => {
   const [user, isLoggedIn] = useUser();
-  const hasRating = ratings.filter((v) => v.userId === user.id)[0].rating;
+  const hasRating =
+    user && ratings.filter((v) => v.userId === user.id)[0].rating;
   const [rateValue, setRateValue] = useState(hasRating || 0);
   //TODO: 이미 별점 줬을때 변경 처리
   const ratingMuation = useMutation(addRatingApi);
