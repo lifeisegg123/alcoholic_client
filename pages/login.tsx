@@ -13,8 +13,11 @@ const Login = () => {
   const queryClient = useQueryClient();
   const handleLogin = async (values: User) => {
     try {
-      await loginMutate.mutateAsync(values);
+      const { data: user } = await loginMutate.mutateAsync(values);
       queryClient.fetchQuery("user/auth");
+      if (user.isAdmin) {
+        router.push("/admin");
+      }
       router.push("/");
     } catch (error) {
       console.error(error);

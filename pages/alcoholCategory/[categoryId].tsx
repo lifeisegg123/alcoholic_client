@@ -41,6 +41,10 @@ const AlcoholTabPage = () => {
     }
   }, [isLoading]);
 
+  const onFormSuccess = () => {
+    setModalVisible(false);
+  };
+
   return (
     <div css={flexColCss}>
       <Modal
@@ -49,7 +53,7 @@ const AlcoholTabPage = () => {
         onCancel={handleModalCancel}
         footer={null}
       >
-        <AlcoholForm />
+        <AlcoholForm finishHandler={onFormSuccess} />
       </Modal>
       <Space direction="vertical" size="large">
         <h3>category name</h3>
@@ -59,7 +63,6 @@ const AlcoholTabPage = () => {
             등록하기
           </Button>
         </RegistWrapper>
-        <p>정렬하기</p>
         <Select
           style={{ width: 120 }}
           defaultValue="정렬하기"

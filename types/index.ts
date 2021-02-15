@@ -7,9 +7,10 @@ export interface Alcohol {
   desc: string;
   category: number;
   alcoholPercentage: number;
-  sellingAt?: string;
-  recommandedFood?: string;
+  sellingAt: string;
+  recommandedFood: string;
   ingredient: string;
+  price: number;
   reviews: Review[];
   ratings: Rating[];
 }

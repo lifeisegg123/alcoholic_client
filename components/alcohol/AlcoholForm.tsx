@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 
 import styled from "@emotion/styled";
 import {
   Button,
-  Cascader,
+  TreeSelect,
   Form,
   Input,
   InputNumber,
   message,
   Upload,
+  Image,
 } from "antd";
 import { UploadChangeParam, UploadFile } from "antd/lib/upload/interface";
 import ImgCrop from "antd-img-crop";
@@ -17,6 +18,8 @@ import ImgCrop from "antd-img-crop";
 import { horizontalMarginAuto } from "styles/display";
 import { createAlcoholApi } from "api/alcohol";
 import { generateFormData } from "utils/generateFormData";
+import { Alcohol } from "types";
+import { backUrl } from "configs/environment";
 
 const categoryOptions = [
   {
@@ -32,40 +35,43 @@ const categoryOptions = [
   {
     value: 1200,
     label: "럼",
-    children: [
-      {
-        value: "nanjing",
-        label: "Nanjing",
-        children: [
-          {
-            value: "zhonghuamen",
-            label: "Zhong Hua Men",
-          },
-        ],
-      },
-    ],
+    children: [],
   },
 ];
 
-const AlcoholForm = () => {
-  const createAlcoholMutation = useMutation(createAlcoholApi);
+type AlcoholForm = {
+  defaultValues?: Alcohol;
+  finishHandler?: (
+    values?: Alcohol,
+    defaultValues?: Alcohol
+  ) => Promise<any> | void;
+};
 
+const AlcoholForm = ({ defaultValues, finishHandler }: AlcoholForm) => {
   const [form] = Form.useForm();
   const [image, setImage] = useState<UploadFile<any>[]>();
+  useEffect(() => {
+    if (defaultValues) {
+      console.log("Form's defualt", defaultValues);
+      form.setFieldsValue(defaultValues);
+    }
+  }, []);
+
   const handleUploadImage = (info: UploadChangeParam<UploadFile<any>>) => {
-    console.log(info);
+    console.log("info", info);
     setImage([info.file]);
     form.setFieldsValue({ thumbnail: info.file.originFileObj });
   };
 
+  const createAlcoholMutation = useMutation(createAlcoholApi);
   const handleSubmit = async (values: any) => {
-    if (!image) return message.error("이미지를 업로드해주세요.");
+    if (!defaultValues && !image)
+      return message.error("이미지를 업로드해주세요.");
     try {
-      const data = {
-        ...values,
-        category: values.category[values.category.length - 1],
-      };
-      const formData = generateFormData(data);
+      if (finishHandler) {
+        return finishHandler(values, defaultValues);
+      }
+      const formData = generateFormData(values);
       console.dir(formData.get("thumbnail"));
       await createAlcoholMutation.mutateAsync(formData);
       message.success("등록이 완료되었습니다.");
@@ -77,6 +83,7 @@ const AlcoholForm = () => {
 
   return (
     <StyledForm onFinish={handleSubmit} form={form}>
+      {defaultValues && <Image src={`${backUrl}/${defaultValues.thumbnail}`} />}
       <Form.Item
         rules={[{ required: true, message: "항목을 입력해주세요." }]}
         label="제품사진"
@@ -105,7 +112,7 @@ const AlcoholForm = () => {
         label="카테고리"
         name="category"
       >
-        <Cascader expandTrigger="hover" options={categoryOptions} />
+        <TreeSelect treeDefaultExpandAll treeData={categoryOptions} />
       </Form.Item>
       <Form.Item
         rules={[{ required: true, message: "항목을 입력해주세요." }]}
@@ -165,7 +172,7 @@ const AlcoholForm = () => {
         htmlType="submit"
         loading={createAlcoholMutation.isLoading}
       >
-        등록
+        {defaultValues ? "수정 및 확인" : "등록"}
       </Button>
     </StyledForm>
   );
