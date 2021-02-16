@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { Button, Modal, Select, Space, Spin } from "antd";
-
-import AlcoholList from "components/alcohol/AlcoholList";
-import { flexColCss, flexRowCss } from "styles/display";
-import AlcoholForm from "components/alcohol/AlcoholForm";
-import { useInfiniteQuery } from "react-query";
-import { getAlcoholsByCategoryIdApi } from "api/alcohol";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useInfiniteQuery, useMutation } from "react-query";
+import styled from "@emotion/styled";
+import { Button, message, Modal, Select, Space, Spin } from "antd";
+
+import { createAlcoholApi, getAlcoholsByCategoryIdApi } from "api/alcohol";
+import AlcoholList from "components/alcohol/AlcoholList";
+import AlcoholForm from "components/alcohol/AlcoholForm";
+import { flexColCss, flexRowCss } from "styles/display";
 import { serializeData } from "utils/serializeData";
+import { generateFormData } from "utils/generateFormData";
+import { Alcohol } from "types";
 
 const AlcoholTabPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -41,8 +43,17 @@ const AlcoholTabPage = () => {
     }
   }, [isLoading]);
 
-  const onFormSuccess = () => {
-    setModalVisible(false);
+  const createAlcoholMutation = useMutation("alcohol/create", createAlcoholApi);
+  const formSubmitHandler = async (values: Alcohol) => {
+    try {
+      const formData = generateFormData(values);
+      await createAlcoholMutation.mutateAsync(formData);
+      message.success("관리자 승인후 처리될 예정입니다.");
+      setModalVisible(false);
+    } catch (error) {
+      console.log(error);
+      message.error("오류가 발생하였습니다.");
+    }
   };
 
   return (
@@ -53,7 +64,10 @@ const AlcoholTabPage = () => {
         onCancel={handleModalCancel}
         footer={null}
       >
-        <AlcoholForm finishHandler={onFormSuccess} />
+        <AlcoholForm
+          finishHandler={formSubmitHandler}
+          loading={createAlcoholMutation.isLoading}
+        />
       </Modal>
       <Space direction="vertical" size="large">
         <h3>category name</h3>

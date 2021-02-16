@@ -8,7 +8,7 @@ export const createAlcoholApi = async (data: FormData) => {
 };
 
 export const getAlcoholsByCategoryIdApi = (
-  category: string,
+  category?: string,
   sortBy?: string,
   searchKey?: string
 ) => async ({ pageParam = 0 }) => {

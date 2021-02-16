@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useMutation } from "react-query";
 
 import styled from "@emotion/styled";
 import {
@@ -16,8 +15,6 @@ import { UploadChangeParam, UploadFile } from "antd/lib/upload/interface";
 import ImgCrop from "antd-img-crop";
 
 import { horizontalMarginAuto } from "styles/display";
-import { createAlcoholApi } from "api/alcohol";
-import { generateFormData } from "utils/generateFormData";
 import { Alcohol } from "types";
 import { backUrl } from "configs/environment";
 
@@ -41,13 +38,18 @@ const categoryOptions = [
 
 type AlcoholForm = {
   defaultValues?: Alcohol;
-  finishHandler?: (
-    values?: Alcohol,
+  finishHandler: (
+    values: Alcohol,
     defaultValues?: Alcohol
   ) => Promise<any> | void;
+  loading?: boolean;
 };
 
-const AlcoholForm = ({ defaultValues, finishHandler }: AlcoholForm) => {
+const AlcoholForm = ({
+  defaultValues,
+  finishHandler,
+  loading,
+}: AlcoholForm) => {
   const [form] = Form.useForm();
   const [image, setImage] = useState<UploadFile<any>[]>();
   useEffect(() => {
@@ -63,22 +65,11 @@ const AlcoholForm = ({ defaultValues, finishHandler }: AlcoholForm) => {
     form.setFieldsValue({ thumbnail: info.file.originFileObj });
   };
 
-  const createAlcoholMutation = useMutation(createAlcoholApi);
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = (values: any) => {
     if (!defaultValues && !image)
       return message.error("이미지를 업로드해주세요.");
-    try {
-      if (finishHandler) {
-        return finishHandler(values, defaultValues);
-      }
-      const formData = generateFormData(values);
-      console.dir(formData.get("thumbnail"));
-      await createAlcoholMutation.mutateAsync(formData);
-      message.success("등록이 완료되었습니다.");
-    } catch (error) {
-      console.log(error);
-      message.error("오류가 발생하였습니다.");
-    }
+
+    finishHandler(values, defaultValues);
   };
 
   return (
@@ -170,7 +161,7 @@ const AlcoholForm = ({ defaultValues, finishHandler }: AlcoholForm) => {
         size="large"
         type="primary"
         htmlType="submit"
-        loading={createAlcoholMutation.isLoading}
+        loading={loading}
       >
         {defaultValues ? "수정 및 확인" : "등록"}
       </Button>

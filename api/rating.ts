@@ -8,3 +8,8 @@ export const addRatingApi = async ({ rating, alcoholId }: Rating) => {
   const { data } = await axios.post(url, { rating, alcoholId });
   return data;
 };
+
+export const updateRatingApi = async ({ rating, alcoholId }: Rating) => {
+  const { data } = await axios.patch(url, { rating, alcoholId });
+  return data;
+};

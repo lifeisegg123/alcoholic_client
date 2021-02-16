@@ -79,6 +79,7 @@ const admin = ({}) => {
         <AlcoholForm
           defaultValues={modalValue!}
           finishHandler={handleFormSubmit}
+          loading={confirmMutation.isLoading}
         />
       </Modal>
       <List

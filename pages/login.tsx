@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { Button, Form, Input, message } from "antd";
-import { loginWithEmailApi } from "api/auth";
+import { getUserApi, loginWithEmailApi } from "api/auth";
+import axios from "axios";
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import { useMutation, useQueryClient } from "react-query";
 import { desktopCss, horizontalMarginAuto } from "styles/display";
@@ -39,6 +41,28 @@ const Login = () => {
   );
 };
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookie = ctx.req ? ctx.req.headers.cookie : "";
+  axios.defaults.headers.Cookie = "";
+  if (ctx.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  try {
+    const res = await getUserApi();
+    if (res) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+  } catch (error) {}
+  return {
+    props: {},
+  };
+};
 
 const Wrapper = styled.div`
   ${horizontalMarginAuto}

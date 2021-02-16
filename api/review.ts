@@ -9,3 +9,8 @@ export const addReviewApi = async ({ desc, alcoholId }: Review) => {
   const { data } = await axios.post(url, { desc, alcoholId });
   return data;
 };
+
+export const updateReviewApi = async ({ id, desc }: Review) => {
+  const { data } = await axios.patch(url + `/${id}`, { desc });
+  return data;
+};

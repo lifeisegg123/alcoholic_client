@@ -25,13 +25,15 @@ export interface User {
 }
 
 export interface Review {
+  id?: string;
   desc: string;
   userId?: string;
-  alcoholId: string;
+  alcoholId?: string;
   user?: User;
 }
 
 export interface Rating {
+  id?: string;
   rating: number;
   userId?: string;
   alcoholId: string;

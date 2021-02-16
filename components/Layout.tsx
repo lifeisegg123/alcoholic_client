@@ -76,6 +76,7 @@ type Props = {
 const AppLayout = ({ children }: Props) => {
   const { data, isSuccess: isLoggedIn } = useQuery("user/auth", getUserApi, {
     cacheTime: Infinity,
+    retry: false,
   });
   const queryClient = useQueryClient();
   const logout = async () => {

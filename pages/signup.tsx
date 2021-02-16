@@ -4,9 +4,11 @@ import { Alert, Button, Form, Input, message } from "antd";
 import { css } from "@emotion/react";
 import { desktopCss, horizontalMarginAuto } from "styles/display";
 import { useMutation } from "react-query";
-import { checkEmailApi, signupApi } from "api/auth";
+import { checkEmailApi, getUserApi, signupApi } from "api/auth";
 import { User } from "types";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import axios from "axios";
 
 const Signup = () => {
   const [form] = Form.useForm();
@@ -99,6 +101,27 @@ const Signup = () => {
       </Form>
     </Wrapper>
   );
+};
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const cookie = ctx.req ? ctx.req.headers.cookie : "";
+  axios.defaults.headers.Cookie = "";
+  if (ctx.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+  try {
+    const res = await getUserApi();
+    if (res) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+  } catch (error) {}
+  return {
+    props: {},
+  };
 };
 
 export default Signup;
