@@ -18,6 +18,7 @@ const InfoContainer = ({ title, desc }: InfoContainerProps) => (
 type AlcoholInfoBoxProps = {
   alcoholPercentage: number;
   ingredient: string;
+  price: number;
   recommandedFood?: string;
   sellingAt?: string;
 };
@@ -26,6 +27,7 @@ const AlcoholInfoBox = ({
   sellingAt,
   recommandedFood,
   ingredient,
+  price,
 }: AlcoholInfoBoxProps) => {
   return (
     <Card>
@@ -46,6 +48,12 @@ const AlcoholInfoBox = ({
             <InfoContainer title="추천안주" desc={recommandedFood} />
           </Col>
         )}
+        <Col span={24}>
+          <InfoContainer
+            title="가격 (정확하지 않을 수 있습니다)"
+            desc={price}
+          />
+        </Col>
       </Row>
     </Card>
   );

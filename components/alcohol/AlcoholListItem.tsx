@@ -9,7 +9,7 @@ type AlcoholListItemProps = {
 };
 
 const AlcoholListItem = ({
-  alcohol: { id, thumbnail, name, desc },
+  alcohol: { id, thumbnail, name },
 }: AlcoholListItemProps) => {
   return (
     <Link href={`/alcoholDetail/${id}`}>
@@ -17,19 +17,26 @@ const AlcoholListItem = ({
         css={cardCss}
         hoverable
         cover={
-          <Image preview={false} src={`${backUrl}/${thumbnail}`} alt={name} />
+          <Image
+            css={imgCss}
+            preview={false}
+            src={`${backUrl}/${thumbnail}`}
+            alt={name}
+          />
         }
       >
-        <Card.Meta
-          title={name}
-          //description={desc.length > 50 ? desc.slice(0, 50) + "..." : desc}
-        />
+        <Card.Meta title={name} />
       </Card>
     </Link>
   );
 };
 
 export default AlcoholListItem;
+
+const imgCss = css`
+  min-width: 100px;
+  min-height: 100px;
+`;
 
 const cardCss = css`
   max-width: 100px;

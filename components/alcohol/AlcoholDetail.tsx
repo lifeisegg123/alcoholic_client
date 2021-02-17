@@ -28,6 +28,7 @@ const AlcoholDetail = ({
     sellingAt,
     recommandedFood,
     ingredient,
+    price,
     ratings,
   },
 }: AlcoholDetailProps) => {
@@ -105,6 +106,7 @@ const AlcoholDetail = ({
             sellingAt={sellingAt}
             recommandedFood={recommandedFood}
             ingredient={ingredient}
+            price={price}
           />
         </Space>
       </Card>

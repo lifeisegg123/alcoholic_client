@@ -11,6 +11,7 @@ export interface Alcohol {
   recommandedFood: string;
   ingredient: string;
   price: number;
+  adminComment?: string;
   reviews: Review[];
   ratings: Rating[];
 }
