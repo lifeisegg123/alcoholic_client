@@ -10,56 +10,42 @@ import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 
+const validateMessages = {
+  required: "'${name}'은 필수 입력 항목입니다.",
+};
+
 const Signup = () => {
   const [form] = Form.useForm();
   const router = useRouter();
 
-  const [isEmailExist, setIsEmailExist] = useState(false);
   const emailCheckMutate = useMutation(checkEmailApi);
-  const checkEmail = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { value },
-    } = event;
+  const checkEmail = async (value: string) => {
     try {
       const { data } = await emailCheckMutate.mutateAsync(value);
       if (data.isUsed) {
-        setIsEmailExist(true);
-      } else {
-        setIsEmailExist(false);
+        throw new Error("사용중인 이메일입니다.");
       }
+      return Promise.resolve();
     } catch (error) {
-      console.error(error);
+      return Promise.reject(error);
     }
   };
 
-  const [isPasswordMatched, setIsPasswordMatched] = useState(true);
-  const passwordMatch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [passwordRegex, setPasswordRegex] = useState<RegExp | undefined>(
+    undefined
+  );
+  const generatePasswordRegex = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const {
-      target: { value, name },
+      target: { value },
     } = event;
-    let password;
-    if (name === "password") {
-      password = form.getFieldValue("passwordConfirm");
-      console.log(password);
-      if (!password) return;
-    } else {
-      password = form.getFieldValue("password");
-    }
-    if (value !== password) {
-      setIsPasswordMatched(false);
-    } else {
-      setIsPasswordMatched(true);
-    }
+    const regex = new RegExp(value);
+    setPasswordRegex(regex);
   };
 
   const signupMutate = useMutation(signupApi);
   const handleRegister = async ({ email, password, nickname }: User) => {
-    if (isEmailExist) {
-      message.error("이메일을 변경해주세요.");
-    }
-    if (!isPasswordMatched) {
-      message.error("비밀번호를 확인해주세요.");
-    }
     try {
       const res = await signupMutate.mutateAsync({ email, password, nickname });
       console.log(res);
@@ -72,26 +58,45 @@ const Signup = () => {
 
   return (
     <Wrapper>
-      <Form form={form} onFinish={handleRegister}>
-        <Form.Item name="email" label="이메일">
-          <Input type="email" onChange={checkEmail} />
+      <Form
+        validateMessages={validateMessages}
+        form={form}
+        onFinish={handleRegister}
+      >
+        <Form.Item
+          validateTrigger="onBlur"
+          rules={[
+            { required: true },
+            {
+              validator: (_, value) => checkEmail(value),
+            },
+          ]}
+          name="email"
+          label="이메일"
+        >
+          <Input type="email" />
         </Form.Item>
-        {isEmailExist && (
-          <Alert css={alertCss} message="중복된 이메일입니다." type="error" />
-        )}
-        <Form.Item name="password" label="비밀번호">
-          <Input.Password onChange={passwordMatch} name="password" />
+
+        <Form.Item
+          rules={[{ required: true }]}
+          name="password"
+          label="비밀번호"
+        >
+          <Input.Password onChange={generatePasswordRegex} name="password" />
         </Form.Item>
-        <Form.Item name="passwordConfirm" label="비밀번호 확인">
-          <Input.Password onChange={passwordMatch} name="passwordConfirm" />
+        <Form.Item
+          rules={[
+            { required: true },
+            {
+              pattern: passwordRegex,
+              message: "비밀번호가 일치하지 않습니다.",
+            },
+          ]}
+          name="passwordConfirm"
+          label="비밀번호 확인"
+        >
+          <Input.Password name="passwordConfirm" />
         </Form.Item>
-        {!isPasswordMatched && (
-          <Alert
-            css={alertCss}
-            message="비밀번호가 일치하지 않습니다."
-            type="error"
-          />
-        )}
         <Form.Item name="nickname" label="닉네임">
           <Input />
         </Form.Item>
