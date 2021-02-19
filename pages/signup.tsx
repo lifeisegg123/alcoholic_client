@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
-import { Alert, Button, Form, Input, message } from "antd";
-import { css } from "@emotion/react";
+import { Button, Form, Input, message } from "antd";
 import { desktopCss, horizontalMarginAuto } from "styles/display";
 import { useMutation } from "react-query";
 import { checkEmailApi, getUserApi, signupApi } from "api/auth";
@@ -143,10 +142,4 @@ const Wrapper = styled.div`
   }
   width: 90%;
   ${desktopCss({ width: "60%" })}
-`;
-
-const alertCss = css`
-  ${horizontalMarginAuto}
-  width: 50%;
-  margin-bottom: 24px;
 `;

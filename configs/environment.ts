@@ -1,1 +1,1 @@
-export const backUrl = "http://localhost:5050";
+export const backUrl = process.env.NEXT_PUBLIC_API_URL;

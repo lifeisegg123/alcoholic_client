@@ -1,5 +1,4 @@
-import { css } from "@emotion/react";
-import { List, Space } from "antd";
+import { List } from "antd";
 import { Alcohol } from "types";
 import AlcoholListItem from "./AlcoholListItem";
 
@@ -27,8 +26,3 @@ const AlcoholList = ({ alcohols }: AlcoholListProps) => {
 };
 
 export default AlcoholList;
-
-const spaceCss = css`
-  justify-content: space-around;
-  padding: 3% 0;
-`;

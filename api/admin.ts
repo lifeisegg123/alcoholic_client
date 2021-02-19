@@ -1,6 +1,5 @@
 import axios from "axios";
 import { backUrl } from "configs/environment";
-import { Alcohol } from "types";
 
 const url = backUrl;
 
