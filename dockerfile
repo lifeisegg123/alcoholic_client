@@ -1,14 +1,12 @@
 
 FROM node:alpine
 
-RUN mkdir -p /opt/app
-WORKDIR /opt
+WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
-ENV PATH /app/node_modules/.bin:$PATH
 
-WORKDIR /opt/app
-COPY . ./opt/app
+COPY . ./
 
+RUN npm run build
 EXPOSE 3000
-CMD npm run dev
+CMD npm run start
