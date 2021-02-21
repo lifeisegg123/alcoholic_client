@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Avatar, Button, Comment } from "antd";
 import { Review } from "types";
 import ReviewInput from "./ReviewInput";
+import Link from "next/link";
 
 type ReviewItemProps = {
   userId?: string;
@@ -29,8 +30,12 @@ const ReviewItem = ({
   };
   return (
     <Comment
-      author={reviewWriter?.nickname}
-      avatar={<Avatar size="small" src={reviewWriter?.profileImg} />}
+      author={reviewWriter!.nickname}
+      avatar={
+        <Link href={`/userProfile/${reviewWriter!.id}`}>
+          <Avatar size="small">{reviewWriter!.nickname[0]}</Avatar>
+        </Link>
+      }
       content={
         isEditing ? (
           <ReviewInput

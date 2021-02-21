@@ -35,7 +35,6 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
     } = document;
     if (scrollHeight - 400 < scrollTop + clientHeight && hasNextPage) {
       fetchNextPage();
-      console.log(hasNextPage);
     }
   };
 
@@ -48,7 +47,6 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
 
   useEffect(() => {
     refetch();
-    console.log(hasNextPage, "hasNextPage");
   }, [categoryId, sortBy, searchKey]);
 
   const [alcoholList, setAlcoholList] = useState([]);

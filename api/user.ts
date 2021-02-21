@@ -28,3 +28,13 @@ export const getUserApi = async () => {
   const { data } = await axios.get(url);
   return data;
 };
+
+export const getUserByIdApi = (id: string) => async () => {
+  const { data } = await axios.get(url + `/${id}`);
+  return data;
+};
+
+export const changeNickNameApi = async ({ nickname }: { nickname: string }) => {
+  const { data } = await axios.patch(url + "/nickname", { nickname });
+  return data;
+};

@@ -5,7 +5,6 @@ export const getCategoryName = (id: string) => {
   if (targetId === 0) {
     return "전체";
   }
-  console.log(targetId, "target");
   const target = categoryOptions.reduce((acc, category) => {
     if (acc) {
       return acc;
@@ -14,9 +13,7 @@ export const getCategoryName = (id: string) => {
       return acc;
     } else {
       const [target] = category.children.filter((v) => {
-        console.log(v.value);
         if (v.value === targetId) {
-          console.log("if");
           return true;
         } else {
           return false;

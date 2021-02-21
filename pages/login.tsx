@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Button, Form, Input, message } from "antd";
-import { getUserApi, loginWithEmailApi } from "api/auth";
+import { getUserApi, loginWithEmailApi } from "api/user";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";

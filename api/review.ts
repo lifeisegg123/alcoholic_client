@@ -19,7 +19,7 @@ export const deleteReviewApi = async ({ id }: Review) => {
   return data;
 };
 
-export const getUserReview = async () => {
-  const { data } = await axios.get(url);
+export const getUserReviewApi = (id: string) => async () => {
+  const { data } = await axios.get(url + `/${id}`);
   return data;
 };

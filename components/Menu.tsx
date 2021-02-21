@@ -9,7 +9,7 @@ const MenuItem = (user: User, isLoggedIn: boolean, logout: () => {}) => (
         <Menu.Item>
           <Link href={`/userProfile/${user.id}`}>
             <a>
-              <Avatar src={user.profileImg} />
+              <Avatar>{user.nickname[0]}</Avatar>
             </a>
           </Link>
         </Menu.Item>

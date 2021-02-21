@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Button, Form, Input, message } from "antd";
 import { desktopCss, horizontalMarginAuto } from "styles/display";
 import { useMutation } from "react-query";
-import { checkEmailApi, getUserApi, signupApi } from "api/auth";
+import { checkEmailApi, getUserApi, signupApi } from "api/user";
 import { User } from "types";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";

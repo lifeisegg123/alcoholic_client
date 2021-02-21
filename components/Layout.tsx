@@ -5,11 +5,12 @@ import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
 import { desktopCss } from "styles/display";
-import { useQuery, useQueryClient } from "react-query";
-import { getUserApi, logoutApi } from "api/auth";
+import { useQueryClient } from "react-query";
+import { logoutApi } from "api/user";
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import MenuItem from "./Menu";
+import { useUser } from "hooks/useUser";
 
 const { Header, Content, Footer } = Layout;
 
@@ -20,10 +21,7 @@ type Props = {
 
 const AppLayout = ({ children }: Props) => {
   const router = useRouter();
-  const { data, isSuccess: isLoggedIn } = useQuery("user/auth", getUserApi, {
-    cacheTime: Infinity,
-    retry: false,
-  });
+  const [user, isLoggedIn] = useUser();
   const queryClient = useQueryClient();
   const logout = async () => {
     await logoutApi();
@@ -76,7 +74,7 @@ const AppLayout = ({ children }: Props) => {
           ) : (
             <SearchOutlined onClick={handleSearchIconClick} css={iconCss} />
           )}
-          <Dropdown overlay={MenuItem(data, isLoggedIn, logout)}>
+          <Dropdown overlay={MenuItem(user, isLoggedIn, logout)}>
             <MenuOutlined css={iconCss} />
           </Dropdown>
         </Space>

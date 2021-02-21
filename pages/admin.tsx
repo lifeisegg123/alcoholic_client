@@ -4,7 +4,7 @@ import axios from "axios";
 import { Avatar, Button, List, message, Modal } from "antd";
 import { useMutation, useQuery } from "react-query";
 
-import { getUserApi } from "api/auth";
+import { getUserApi } from "api/user";
 import {
   deleteAlcoholApi,
   getNotConfirmedListApi,
