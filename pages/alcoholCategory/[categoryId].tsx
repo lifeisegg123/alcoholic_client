@@ -1,14 +1,13 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useInfiniteQuery, useMutation } from "react-query";
+import { useState } from "react";
+import { useMutation } from "react-query";
 import styled from "@emotion/styled";
-import { Button, message, Modal, Select, Space, Spin } from "antd";
+import { Button, message, Modal, Select, Space } from "antd";
 
-import { createAlcoholApi, getAlcoholsByCategoryIdApi } from "api/alcohol";
+import { createAlcoholApi } from "api/alcohol";
 import AlcoholList from "components/alcohol/AlcoholList";
 import AlcoholForm from "components/alcohol/AlcoholForm";
 import { flexColCss, flexRowCss } from "styles/display";
-import { serializeData } from "utils/serializeData";
 import { generateFormData } from "utils/generateFormData";
 import { Alcohol } from "types";
 
@@ -21,27 +20,13 @@ const AlcoholTabPage = () => {
     setModalVisible(false);
   };
 
+  const router = useRouter();
+  const { categoryId } = router.query;
   const [sortBy, setSortBy] = useState("");
+
   const handleSort = (value: string) => {
     setSortBy(value);
   };
-
-  const router = useRouter();
-  const { categoryId } = router.query;
-  const { data, isSuccess, isLoading } = useInfiniteQuery(
-    ["alcohol/category", categoryId],
-    getAlcoholsByCategoryIdApi(categoryId as string, sortBy),
-    {
-      getNextPageParam: (lastPage) => lastPage.nextPage,
-    }
-  );
-
-  const [alcoholList, setAlcoholList] = useState([]);
-  useEffect(() => {
-    if (isSuccess) {
-      setAlcoholList(serializeData(data!));
-    }
-  }, [isLoading]);
 
   const createAlcoholMutation = useMutation("alcohol/create", createAlcoholApi);
   const formSubmitHandler = async (values: Alcohol) => {
@@ -82,15 +67,12 @@ const AlcoholTabPage = () => {
           defaultValue="정렬하기"
           onChange={handleSort}
         >
-          <Select.Option value="price,DESC">가격낮은순</Select.Option>
-          <Select.Option value="price,ASC">가격높은순</Select.Option>
-          <Select.Option value="rating,ASC">별점순</Select.Option>
+          <Select.Option value="price,ASC">가격낮은순</Select.Option>
+          <Select.Option value="price,DESC">가격높은순</Select.Option>
+          <Select.Option value="rating,DESC">별점순</Select.Option>
         </Select>
-        {isLoading ? (
-          <Spin size="large" />
-        ) : (
-          <AlcoholList alcohols={alcoholList} />
-        )}
+
+        <AlcoholList categoryId={categoryId as string} sortBy={sortBy} />
       </Space>
     </div>
   );

@@ -17,24 +17,7 @@ import ImgCrop from "antd-img-crop";
 import { horizontalMarginAuto } from "styles/display";
 import { Alcohol } from "types";
 import { backUrl } from "configs/environment";
-
-const categoryOptions = [
-  {
-    value: 1100,
-    label: "위스키",
-    children: [
-      {
-        value: 1110,
-        label: "싱글 몰트 위스키",
-      },
-    ],
-  },
-  {
-    value: 1200,
-    label: "럼",
-    children: [],
-  },
-];
+import { categoryOptions } from "./categoryOptions";
 
 type AlcoholForm = {
   defaultValues?: Alcohol;
