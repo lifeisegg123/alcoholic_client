@@ -7,7 +7,7 @@ import Head from "next/head";
 import { desktopCss } from "styles/display";
 import { useQuery, useQueryClient } from "react-query";
 import { getUserApi, logoutApi } from "api/auth";
-import { css, keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import MenuItem from "./Menu";
 

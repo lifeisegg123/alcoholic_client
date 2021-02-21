@@ -1,8 +1,7 @@
-import { List, Spin } from "antd";
+import { List } from "antd";
 import { getAlcoholsByCategoryIdApi } from "api/alcohol";
 import { useEffect, useState } from "react";
 import { useInfiniteQuery } from "react-query";
-import { Alcohol } from "types";
 import { serializeData } from "utils/serializeData";
 import AlcoholListItem from "./AlcoholListItem";
 

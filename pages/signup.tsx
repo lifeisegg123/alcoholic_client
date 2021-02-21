@@ -46,7 +46,7 @@ const Signup = () => {
   const signupMutate = useMutation(signupApi);
   const handleRegister = async ({ email, password, nickname }: User) => {
     try {
-      const res = await signupMutate.mutateAsync({ email, password, nickname });
+      await signupMutate.mutateAsync({ email, password, nickname });
       router.push("/login");
     } catch (error) {
       console.error(error);
