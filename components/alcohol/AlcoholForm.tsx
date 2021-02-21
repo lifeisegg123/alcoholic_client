@@ -156,6 +156,15 @@ const AlcoholForm = ({
       >
         <Input />
       </Form.Item>
+      {defaultValues && (
+        <Form.Item
+          rules={[{ max: 70, message: "너무 깁니다." }]}
+          label="관리자 평"
+          name="adminComment"
+        >
+          <Input />
+        </Form.Item>
+      )}
       <Button
         css={horizontalMarginAuto}
         size="large"

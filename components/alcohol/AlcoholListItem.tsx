@@ -11,6 +11,7 @@ type AlcoholListItemProps = {
 const AlcoholListItem = ({
   alcohol: { id, thumbnail, name },
 }: AlcoholListItemProps) => {
+  console.log(id, thumbnail, name);
   return (
     <Link href={`/alcoholDetail/${id}`}>
       <Card

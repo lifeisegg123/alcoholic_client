@@ -37,26 +37,27 @@ const AlcoholDetail = ({
   const hasRating =
     user && ratings.filter((v) => v.userId === user.id)[0]?.rating;
   const [rateValue, setRateValue] = useState(0);
+
   useEffect(() => {
     if (hasRating && hasRating > 0) {
       setRateValue(hasRating);
     }
   }, []);
+
   const handleRateClick = (value: number) => {
     if (!isLoggedIn) return message.error("로그인 후 시도해주세요");
     setRateValue(value);
   };
-  //TODO: 이미 별점 줬을때 변경 처리
+
   const ratingMuation = useMutation(
     hasRating === undefined ? addRatingApi : updateRatingApi
   );
   const handleRateChange = async () => {
     try {
-      const res = await ratingMuation.mutateAsync({
+      await ratingMuation.mutateAsync({
         rating: rateValue,
         alcoholId: id!,
       });
-      console.log(res);
       queryClient.fetchQuery(["alcohol", "detail", String(id)]);
       message.success("별점이 등록되었습니다.");
     } catch (error) {

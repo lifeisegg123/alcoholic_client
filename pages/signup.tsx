@@ -67,7 +67,7 @@ const Signup = () => {
           rules={[
             { required: true },
             {
-              validator: (_, value) => checkEmail(value),
+              validator: (_, value) => value && checkEmail(value),
             },
           ]}
           name="email"

@@ -1,72 +1,17 @@
 import styled from "@emotion/styled";
-import { ReactNode } from "react";
-import { Layout, Menu, Dropdown, Avatar } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { ReactNode, useEffect, useRef, useState } from "react";
+import { Layout, Dropdown, Space, Input } from "antd";
+import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
 import { desktopCss } from "styles/display";
 import { useQuery, useQueryClient } from "react-query";
 import { getUserApi, logoutApi } from "api/auth";
-import { User } from "types";
+import { css, keyframes } from "@emotion/react";
+import { useRouter } from "next/router";
+import MenuItem from "./Menu";
 
 const { Header, Content, Footer } = Layout;
-
-const menu = (user: User, isLoggedIn: boolean, logout: () => {}) => (
-  <Menu>
-    {isLoggedIn && user ? (
-      <>
-        <Menu.Item>
-          <Link href={`/userProfile/${user.id}`}>
-            <a>
-              <Avatar src={user.profileImg} />
-            </a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <a onClick={logout}>로그아웃</a>
-        </Menu.Item>
-      </>
-    ) : (
-      <>
-        <Menu.Item>
-          <Link href="/login">
-            <a>로그인</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/signup">
-            <a>회원가입</a>
-          </Link>
-        </Menu.Item>
-      </>
-    )}
-
-    <Menu.SubMenu key="alcohol" title="당신이 찾는 술">
-      <Menu.Item>
-        <Link href="/alcoholCategory/0">
-          <a>전체</a>
-        </Link>
-      </Menu.Item>
-      <Menu.SubMenu key="whiskey" title="위스키">
-        <Menu.Item>
-          <Link href="/alcoholCategory/1000">
-            <a>전체</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/alcoholCategory/1000">
-            <a>싱글몰트</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/alcoholCategory/1000">
-            <a>그레인</a>
-          </Link>
-        </Menu.Item>
-      </Menu.SubMenu>
-    </Menu.SubMenu>
-  </Menu>
-);
 
 type Props = {
   children?: ReactNode;
@@ -74,6 +19,7 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
+  const router = useRouter();
   const { data, isSuccess: isLoggedIn } = useQuery("user/auth", getUserApi, {
     cacheTime: Infinity,
     retry: false,
@@ -84,7 +30,23 @@ const AppLayout = ({ children }: Props) => {
     queryClient.setQueryData("user/auth", null);
     queryClient.resetQueries(["user/auth"]);
   };
-
+  const searchRef = useRef<Input>(null);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const handleSearchIconClick = () => {
+    setShowSearchBar(true);
+  };
+  const handleSearchBlur = () => {
+    setShowSearchBar(false);
+  };
+  useEffect(() => {
+    if (showSearchBar) {
+      searchRef.current?.focus();
+    }
+  }, [showSearchBar]);
+  const handleSearch = (value: string) => {
+    if (!value) return;
+    router.push(`/search?q=${value}`);
+  };
   return (
     <div>
       <Head>
@@ -103,9 +65,21 @@ const AppLayout = ({ children }: Props) => {
             <h1>주당 이선생</h1>
           </a>
         </Link>
-        <Dropdown overlay={menu(data, isLoggedIn, logout)}>
-          <StyledMenuIcon />
-        </Dropdown>
+        <Space size="large" align="center">
+          {showSearchBar ? (
+            <Input.Search
+              ref={searchRef}
+              css={searchCss}
+              onSearch={handleSearch}
+              onBlur={handleSearchBlur}
+            />
+          ) : (
+            <SearchOutlined onClick={handleSearchIconClick} css={iconCss} />
+          )}
+          <Dropdown overlay={MenuItem(data, isLoggedIn, logout)}>
+            <MenuOutlined css={iconCss} />
+          </Dropdown>
+        </Space>
       </StyledHeader>
 
       <StyledContent>{children}</StyledContent>
@@ -137,10 +111,6 @@ const StyledHeader = styled(Header)`
   border-bottom: 1px solid black;
 `;
 
-const StyledMenuIcon = styled(MenuOutlined)`
-  font-size: 20px;
-`;
-
 const StyledContent = styled(Content)`
   padding: 50px 0;
   margin: 0 auto;
@@ -150,4 +120,12 @@ const StyledContent = styled(Content)`
   ${desktopCss({
     width: "70%",
   })};
+`;
+const iconCss = css`
+  font-size: 20px;
+`;
+
+const searchCss = css`
+  display: flex;
+  margin-bottom: 5px;
 `;
