@@ -8,6 +8,7 @@ type ReviewItemProps = {
   review: Review;
   editHandler: (reviewId: string) => (review: string) => Promise<any>;
   editLoading: boolean;
+  deleteHandler: (reviewId: string) => () => Promise<any>;
 };
 
 const ReviewItem = ({
@@ -15,6 +16,7 @@ const ReviewItem = ({
   review,
   editHandler,
   editLoading,
+  deleteHandler,
 }: ReviewItemProps) => {
   const { user: reviewWriter } = review;
   const [isEditing, setIsEditing] = useState(false);
@@ -45,6 +47,11 @@ const ReviewItem = ({
         reviewWriter!.id === userId && (
           <Button onClick={toggleEditting}>
             {isEditing ? "취소" : "수정하기"}
+          </Button>
+        ),
+        reviewWriter!.id === userId && (
+          <Button danger onClick={deleteHandler(review.id!)}>
+            삭제하기
           </Button>
         ),
       ]}

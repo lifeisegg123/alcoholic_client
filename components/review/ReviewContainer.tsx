@@ -4,7 +4,7 @@ import { desktopCss, horizontalMarginAuto } from "styles/display";
 import { Review } from "types";
 import ReviewInput from "./ReviewInput";
 import ReviewItem from "./ReviewItem";
-import { addReviewApi, updateReviewApi } from "api/review";
+import { addReviewApi, deleteReviewApi, updateReviewApi } from "api/review";
 import { useMutation, useQueryClient } from "react-query";
 import { useUser } from "hooks/useUser";
 
@@ -41,6 +41,17 @@ const ReviewContainer = ({ reviews, alcoholId }: ReviewContainerProps) => {
     }
   };
 
+  const deleteReviewMutation = useMutation(deleteReviewApi);
+  const deleteReview = (id: string) => async () => {
+    try {
+      await deleteReviewMutation.mutateAsync({ id });
+      queryClient.fetchQuery(["alcohol", "detail", alcoholId]);
+      message.success("리뷰가 삭제되었습니다.");
+    } catch (error) {
+      console.error(error);
+      message.error("에러가 발생하였습니다.");
+    }
+  };
   return (
     <Wrapper>
       <Card>
@@ -55,6 +66,7 @@ const ReviewContainer = ({ reviews, alcoholId }: ReviewContainerProps) => {
                 review={item}
                 editHandler={updateReview}
                 editLoading={updateReviewMutation.isLoading}
+                deleteHandler={deleteReview}
               />
             </li>
           )}

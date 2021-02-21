@@ -5,23 +5,23 @@ export const categoryOptions = [
     children: [
       {
         value: 1100,
-        label: "스카치",
+        label: "스카치 위스키",
       },
       {
         value: 1200,
-        label: "아이리쉬",
+        label: "아이리쉬 위스키",
       },
       {
         value: 1300,
-        label: "아메리칸",
+        label: "아메리칸 위스키",
       },
       {
         value: 1400,
-        label: "캐네디안",
+        label: "캐네디안 위스키",
       },
       {
         value: 1500,
-        label: "기타",
+        label: "기타 위스키",
       },
     ],
   },
@@ -49,11 +49,11 @@ export const categoryOptions = [
     children: [
       {
         value: 3100,
-        label: "레드",
+        label: "레드와인",
       },
       {
         value: 3200,
-        label: "화이트",
+        label: "화이트와인",
       },
     ],
   },
@@ -141,7 +141,7 @@ export const categoryOptions = [
   },
   {
     value: 7000,
-    label: "럼",
+    label: "맥주",
     children: [
       {
         value: 7100,

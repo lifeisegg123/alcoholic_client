@@ -10,6 +10,7 @@ import AlcoholForm from "components/alcohol/AlcoholForm";
 import { flexColCss, flexRowCss } from "styles/display";
 import { generateFormData } from "utils/generateFormData";
 import { Alcohol } from "types";
+import { getCategoryName } from "utils/getCategoryName";
 
 const AlcoholTabPage = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -40,7 +41,6 @@ const AlcoholTabPage = () => {
       message.error("오류가 발생하였습니다.");
     }
   };
-
   return (
     <div css={flexColCss}>
       <Modal
@@ -55,7 +55,7 @@ const AlcoholTabPage = () => {
         />
       </Modal>
       <Space direction="vertical" size="large">
-        <h3>category name</h3>
+        <h3>{getCategoryName(categoryId as string)}</h3>
         <RegistWrapper>
           <p>찾는 술이 없다면</p>
           <Button type="primary" onClick={handleModalButton}>

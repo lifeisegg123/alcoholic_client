@@ -69,7 +69,12 @@ const AlcoholDetail = ({
     <Wrapper>
       <Card css={flexColCss}>
         <Space direction="vertical">
-          <Image preview={false} src={`${backUrl}/${thumbnail}`} alt={name} />
+          <Image
+            width="100%"
+            preview={false}
+            src={`${backUrl}/${thumbnail}`}
+            alt={name}
+          />
           <div>
             <Space>
               <span>

@@ -27,7 +27,7 @@ export interface User {
 
 export interface Review {
   id?: string;
-  desc: string;
+  desc?: string;
   userId?: string;
   alcoholId?: string;
   user?: User;

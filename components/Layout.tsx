@@ -48,7 +48,7 @@ const AppLayout = ({ children }: Props) => {
     router.push(`/search?q=${value}`);
   };
   return (
-    <div>
+    <>
       <Head>
         <title>주당 이선생</title>
         <meta charSet="utf-8" />
@@ -88,7 +88,7 @@ const AppLayout = ({ children }: Props) => {
         <hr />
         <span>I'm here to stay (Footer)</span>
       </Footer>
-    </div>
+    </>
   );
 };
 

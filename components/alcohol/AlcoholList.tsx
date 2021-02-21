@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import { List } from "antd";
 import { getAlcoholsByCategoryIdApi } from "api/alcohol";
 import { useEffect, useState } from "react";
@@ -61,6 +62,7 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
     <List
       loading={isLoading}
       dataSource={alcoholList}
+      css={listCss}
       grid={{
         gutter: 16,
         xs: 1,
@@ -80,3 +82,7 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
 };
 
 export default AlcoholList;
+
+const listCss = css`
+  min-width: 250px;
+`;
