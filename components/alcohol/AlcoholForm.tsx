@@ -37,13 +37,11 @@ const AlcoholForm = ({
   const [image, setImage] = useState<UploadFile<any>[]>();
   useEffect(() => {
     if (defaultValues) {
-      console.log("Form's defualt", defaultValues);
       form.setFieldsValue(defaultValues);
     }
   }, []);
 
   const handleUploadImage = (info: UploadChangeParam<UploadFile<any>>) => {
-    console.log("info", info);
     setImage([info.file]);
     form.setFieldsValue({ thumbnail: info.file.originFileObj });
   };

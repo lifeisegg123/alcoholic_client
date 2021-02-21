@@ -47,7 +47,6 @@ const Signup = () => {
   const handleRegister = async ({ email, password, nickname }: User) => {
     try {
       const res = await signupMutate.mutateAsync({ email, password, nickname });
-      console.log(res);
       router.push("/login");
     } catch (error) {
       console.error(error);

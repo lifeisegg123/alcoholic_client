@@ -61,7 +61,7 @@ const AlcoholDetail = ({
       queryClient.fetchQuery(["alcohol", "detail", String(id)]);
       message.success("별점이 등록되었습니다.");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       message.error("별점등록을 실패하였습니다.");
     }
   };

@@ -36,7 +36,7 @@ const AlcoholTabPage = () => {
       message.success("관리자 승인후 처리될 예정입니다.");
       setModalVisible(false);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       message.error("오류가 발생하였습니다.");
     }
   };

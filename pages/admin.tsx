@@ -34,7 +34,6 @@ const admin = ({}) => {
 
   const deleteMutation = useMutation(deleteAlcoholApi);
   const handleDelete = (alcoholId: string) => async () => {
-    console.log(alcoholId);
     try {
       await deleteMutation.mutateAsync(alcoholId);
       await refetch();
@@ -115,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       throw new Error("관리자가 아닙니다.");
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return {
       redirect: {
         destination: "/",

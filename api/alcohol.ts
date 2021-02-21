@@ -26,6 +26,5 @@ export const getAlcoholsByCategoryIdApi = (
 
 export const getAlcoholDetailApi = (id: number | string) => async () => {
   const { data } = await axios.get(`${url}/${id}`);
-  console.log(data);
   return data;
 };
