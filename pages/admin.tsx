@@ -15,6 +15,7 @@ import { Alcohol } from "types";
 import AlcoholForm from "components/alcohol/AlcoholForm";
 import styled from "@emotion/styled";
 import { generateFormData } from "utils/generateFormData";
+import { css } from "@emotion/react";
 
 const admin = ({}) => {
   const { data, refetch } = useQuery(
@@ -81,7 +82,8 @@ const admin = ({}) => {
           loading={confirmMutation.isLoading}
         />
       </Modal>
-      <StyledList
+      <List
+        css={listCss}
         dataSource={data}
         renderItem={(item: Alcohol) => (
           <ItemWrapper>
@@ -129,7 +131,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 export default admin;
 
-const StyledList = styled(List)`
+const listCss = css`
   width: 100%;
 `;
 
