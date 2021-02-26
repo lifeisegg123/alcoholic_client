@@ -4,7 +4,7 @@ import { Layout, Dropdown, Space, Input } from "antd";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
-import { desktopCss } from "styles/display";
+import { desktopCss, flexColCss } from "styles/display";
 import { useQueryClient } from "react-query";
 import { logoutApi } from "api/user";
 import { css } from "@emotion/react";
@@ -82,10 +82,9 @@ const AppLayout = ({ children }: Props) => {
 
       <StyledContent>{children}</StyledContent>
 
-      <Footer>
-        <hr />
+      <StyledFooter>
         <span>I'm here to stay (Footer)</span>
-      </Footer>
+      </StyledFooter>
     </>
   );
 };
@@ -93,31 +92,34 @@ const AppLayout = ({ children }: Props) => {
 export default AppLayout;
 
 const StyledHeader = styled(Header)`
-  position: fixed;
+  position: sticky;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1;
   width: 100%;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.white};
   & h1 {
     white-space: nowrap;
-    color: #c36827;
+    color: ${({ theme }) => theme.colors.primary};
     font-size: ${(props) => props.theme.fontSize.title};
   }
-  border-bottom: 1px solid black;
 `;
 
 const StyledContent = styled(Content)`
-  padding: 50px 0;
-  margin: 0 auto;
-  margin-top: 50px;
-  min-height: 80vh;
+  margin: 5vh auto;
+  min-height: 70vh;
   width: 90%;
   ${desktopCss({
-    width: "70%",
+    width: "60%",
   })};
+  ${flexColCss}
+`;
+
+const StyledFooter = styled(Footer)`
+  background-color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.colors.white};
 `;
 const iconCss = css`
   font-size: 20px;

@@ -43,18 +43,20 @@ const AlcoholTabPage = () => {
   };
   return (
     <div css={flexColCss}>
-      <Modal
-        width="60vw"
-        visible={modalVisible}
-        onCancel={handleModalCancel}
-        footer={null}
-      >
-        <AlcoholForm
-          finishHandler={formSubmitHandler}
-          loading={createAlcoholMutation.isLoading}
-        />
-      </Modal>
-      <Space direction="vertical" size="large">
+      {modalVisible && (
+        <Modal
+          width="60vw"
+          visible={modalVisible}
+          onCancel={handleModalCancel}
+          footer={null}
+        >
+          <AlcoholForm
+            finishHandler={formSubmitHandler}
+            loading={createAlcoholMutation.isLoading}
+          />
+        </Modal>
+      )}
+      <StyledSpace direction="vertical" size="large">
         <h3>{getCategoryName(categoryId as string)}</h3>
         <RegistWrapper>
           <p>찾는 술이 없다면</p>
@@ -73,7 +75,7 @@ const AlcoholTabPage = () => {
         </Select>
 
         <AlcoholList categoryId={categoryId as string} sortBy={sortBy} />
-      </Space>
+      </StyledSpace>
     </div>
   );
 };
@@ -85,4 +87,8 @@ const RegistWrapper = styled.div`
   & p {
     margin-right: 3%;
   }
+`;
+
+const StyledSpace = styled(Space)`
+  width: 100%;
 `;

@@ -1,5 +1,5 @@
 import { AppProps } from "next/app";
-import "antd/dist/antd.css";
+import "styles/custom-theme.css";
 import AppLayout from "components/Layout";
 import GlobalStyle from "styles/GlobalStyle";
 import { ThemeProvider } from "@emotion/react";

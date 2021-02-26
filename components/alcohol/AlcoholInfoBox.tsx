@@ -33,27 +33,27 @@ const AlcoholInfoBox = ({
     <Card>
       <Row gutter={[12, 12]}>
         <Col span={12}>
-          <InfoContainer title="알콜도수" desc={alcoholPercentage + "%"} />
+          <InfoContainer title="원료" desc={ingredient} />
         </Col>
         <Col span={12}>
-          <InfoContainer title="원료" desc={ingredient} />
+          <InfoContainer title="알콜도수" desc={alcoholPercentage + "%"} />
         </Col>
         {sellingAt && (
           <Col span={12}>
             <InfoContainer title="판매처" desc={sellingAt} />
           </Col>
         )}
-        {recommandedFood && (
-          <Col span={12}>
-            <InfoContainer title="추천안주" desc={recommandedFood} />
-          </Col>
-        )}
-        <Col span={24}>
+        <Col span={12}>
           <InfoContainer
             title="가격 (정확하지 않을 수 있습니다)"
             desc={price}
           />
         </Col>
+        {recommandedFood && (
+          <Col span={24}>
+            <InfoContainer title="추천안주" desc={recommandedFood} />
+          </Col>
+        )}
       </Row>
     </Card>
   );

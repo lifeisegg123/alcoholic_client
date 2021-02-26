@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Card, List, message } from "antd";
-import { desktopCss, horizontalMarginAuto } from "styles/display";
+import { horizontalMarginAuto } from "styles/display";
 import { Review } from "types";
 import ReviewInput from "./ReviewInput";
 import ReviewItem from "./ReviewItem";
@@ -85,7 +85,4 @@ export default ReviewContainer;
 
 const Wrapper = styled.div`
   ${horizontalMarginAuto}
-  ${desktopCss({
-    width: "70%",
-  })}
 `;

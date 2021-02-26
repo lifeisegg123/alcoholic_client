@@ -39,10 +39,8 @@ const imgCss = css`
 `;
 
 const cardCss = css`
-  max-width: 100px;
   max-height: 200px;
   @media screen and (min-width: 567px) {
-    max-width: 300px;
     max-height: 500px;
   }
 `;

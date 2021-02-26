@@ -7,6 +7,7 @@ import AlcoholDetail from "components/alcohol/AlcoholDetail";
 import ReviewContainer from "components/review/ReviewContainer";
 import { getAlcoholDetailApi } from "api/alcohol";
 import { Alcohol, Review } from "types";
+import { Space } from "antd";
 
 type AlcoholDetailPageProps = {
   alcohol: Alcohol;
@@ -21,13 +22,13 @@ const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
     getAlcoholDetailApi(alcoholId as string)
   );
   return (
-    <>
+    <Space direction="vertical" size="large">
       <AlcoholDetail alcohol={alcohol} />
       <ReviewContainer
         reviews={alcohol.reviews}
         alcoholId={alcoholId as string}
       />
-    </>
+    </Space>
   );
 };
 

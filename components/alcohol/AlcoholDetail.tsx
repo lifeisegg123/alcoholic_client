@@ -67,15 +67,15 @@ const AlcoholDetail = ({
   };
   return (
     <Wrapper>
-      <Card css={flexColCss}>
-        <Space direction="vertical">
+      <Card css={cardCss}>
+        <Space direction="vertical" size="large">
           <Image
             width="100%"
             preview={false}
             src={`${backUrl}/${thumbnail}`}
             alt={name}
           />
-          <div>
+          <BottomLineDiv>
             <Space>
               <span>
                 <h3>{name}</h3>
@@ -86,9 +86,8 @@ const AlcoholDetail = ({
               </RateWrapper>
               <p>{ratingCount} 개의 별점</p>
             </Space>
-          </div>
-          <Popconfirm
-            css={popconCss}
+          </BottomLineDiv>
+          <StyledPopconfirm
             title={`별점을 ${
               hasRating === undefined ? "주" : "수정하"
             }시겠습니까?`}
@@ -103,7 +102,7 @@ const AlcoholDetail = ({
             <a href="#">
               <Rate allowHalf value={rateValue} onChange={handleRateClick} />
             </a>
-          </Popconfirm>
+          </StyledPopconfirm>
           <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "더보기" }}>
             {desc}
           </Paragraph>
@@ -127,7 +126,7 @@ const Wrapper = styled.div`
   ${flexColCss}
   justify-content: space-around;
   @media screen and (min-width: 567px) {
-    width: 70%;
+    width: 100%;
   }
 `;
 
@@ -137,8 +136,17 @@ const RateWrapper = styled.span`
   font-size: 20px;
 `;
 
-const popconCss = css`
+const BottomLineDiv = styled.div`
+  border-bottom: solid 1px ${({ theme }) => theme.colors.grey};
+`;
+
+const cardCss = css`
+  ${flexColCss}
+`;
+
+const StyledPopconfirm = styled(Popconfirm)`
   ${flexRowCss}
+  border-bottom: solid 1px ${({ theme }) => theme.colors.grey};
   & p {
     margin-right: 10px;
   }

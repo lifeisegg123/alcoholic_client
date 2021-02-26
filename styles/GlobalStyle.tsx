@@ -5,6 +5,7 @@ import theme from "styles/Theme";
 const globalStyle = css`
   ${reset}
   body {
+    top: 0;
     font-family: "NanumSquareRound", sans-serif;
   }
   h1 {

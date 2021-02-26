@@ -81,7 +81,11 @@ const Signup = () => {
         </Form.Item>
 
         <Form.Item
-          rules={[{ required: true }]}
+          rules={[
+            { required: true },
+            { min: 6, message: "6 ~ 20자 사이로 입력해주세요." },
+            { max: 20, message: "6 ~ 20자 사이로 입력해주세요." },
+          ]}
           name="password"
           label="비밀번호"
         >
