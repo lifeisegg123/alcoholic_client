@@ -68,7 +68,7 @@ const admin = ({}) => {
   };
 
   return (
-    <div>
+    <>
       <Modal
         width="60vw"
         visible={modalVisible}
@@ -81,7 +81,7 @@ const admin = ({}) => {
           loading={confirmMutation.isLoading}
         />
       </Modal>
-      <List
+      <StyledList
         dataSource={data}
         renderItem={(item: Alcohol) => (
           <ItemWrapper>
@@ -98,7 +98,7 @@ const admin = ({}) => {
           </ItemWrapper>
         )}
       />
-    </div>
+    </>
   );
 };
 
@@ -129,9 +129,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
 export default admin;
 
-const ItemWrapper = styled.li`
+const StyledList = styled(List)`
+  width: 100%;
+`;
+
+const ItemWrapper = styled(List.Item)`
   margin: ${({ theme }) => theme.spacing.normal};
-  min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
