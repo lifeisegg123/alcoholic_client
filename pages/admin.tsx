@@ -114,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       throw new Error("관리자가 아닙니다.");
     }
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     return {
       redirect: {
         destination: "/",
@@ -131,11 +131,17 @@ export default admin;
 
 const ItemWrapper = styled.li`
   margin: ${({ theme }) => theme.spacing.normal};
+  min-width: 200px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   > span {
     width: 100%;
+  }
+  transition: all 0.7s ease-in-out;
+  :hover {
+    transform: translateY(-20%);
+    transition: all 0.7s ease-in-out;
   }
 `;
