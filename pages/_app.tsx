@@ -10,6 +10,11 @@ import theme from "styles/Theme";
 import axios from "axios";
 import { useRef } from "react";
 
+if (typeof window !== "undefined") {
+  const access_token = localStorage.getItem("access_token");
+  axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+  document.cookie = `access_token=${access_token}`;
+}
 axios.defaults.withCredentials = true;
 
 const App = ({ Component, pageProps }: AppProps) => {

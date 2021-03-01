@@ -116,10 +116,12 @@ const Signup = () => {
 };
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
-  axios.defaults.headers.Cookie = "";
+  axios.defaults.headers.common["Authorization"] = "";
   if (ctx.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
+    const [_, token] = cookie.split("=");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
+
   try {
     const res = await getUserApi();
     if (res) {
@@ -130,7 +132,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         },
       };
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(error.response, "eerrr");
+  }
   return {
     props: {},
   };

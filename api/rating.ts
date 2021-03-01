@@ -2,7 +2,7 @@ import axios from "axios";
 import { backUrl } from "configs/environment";
 import { Rating } from "types";
 
-const url = backUrl + "/rating";
+const url = backUrl + "/ratings";
 
 export const addRatingApi = async ({ rating, alcoholId }: Rating) => {
   const { data } = await axios.post(url, { rating, alcoholId });
@@ -10,6 +10,6 @@ export const addRatingApi = async ({ rating, alcoholId }: Rating) => {
 };
 
 export const updateRatingApi = async ({ rating, alcoholId }: Rating) => {
-  const { data } = await axios.patch(url, { rating, alcoholId });
+  const { data } = await axios.put(url, { rating, alcoholId });
   return data;
 };

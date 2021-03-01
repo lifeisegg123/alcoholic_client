@@ -15,11 +15,13 @@ const Login = () => {
   const queryClient = useQueryClient();
   const handleLogin = async (values: User) => {
     try {
-      const { data: user } = await loginMutate.mutateAsync(values);
+      const {
+        data: { access_token },
+      } = await loginMutate.mutateAsync(values);
+      localStorage.setItem("access_token", access_token);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+
       queryClient.fetchQuery("user/auth");
-      if (user.isAdmin) {
-        router.push("/admin");
-      }
       router.push("/");
     } catch (error) {
       console.error(error);
@@ -44,10 +46,12 @@ export default Login;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
-  axios.defaults.headers.Cookie = "";
+  axios.defaults.headers.common["Authorization"] = "";
   if (ctx.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
+    const [_, token] = cookie.split("=");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   }
+
   try {
     const res = await getUserApi();
     if (res) {

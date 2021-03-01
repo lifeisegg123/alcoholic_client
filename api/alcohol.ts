@@ -1,7 +1,7 @@
 import axios from "axios";
 import { backUrl } from "configs/environment";
 
-const url = backUrl + "/alcohol";
+const url = backUrl + "/alcohols";
 
 export const createAlcoholApi = async (data: FormData) => {
   return await axios.post(url, data);

@@ -11,6 +11,7 @@ import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import MenuItem from "./Menu";
 import { useUser } from "hooks/useUser";
+import axios from "axios";
 
 const { Header, Content, Footer } = Layout;
 
@@ -24,7 +25,8 @@ const AppLayout = ({ children }: Props) => {
   const [user, isLoggedIn] = useUser();
   const queryClient = useQueryClient();
   const logout = async () => {
-    await logoutApi();
+    localStorage.removeItem("access_token");
+    axios.defaults.headers.common["Authorization"] = null;
     queryClient.setQueryData("user/auth", null);
     queryClient.resetQueries(["user/auth"]);
   };

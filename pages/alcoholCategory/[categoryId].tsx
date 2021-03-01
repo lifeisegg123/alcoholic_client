@@ -42,7 +42,7 @@ const AlcoholTabPage = () => {
     }
   };
   return (
-    <div css={flexColCss}>
+    <Wrapper>
       {modalVisible && (
         <Modal
           width="60vw"
@@ -76,11 +76,16 @@ const AlcoholTabPage = () => {
 
         <AlcoholList categoryId={categoryId as string} sortBy={sortBy} />
       </StyledSpace>
-    </div>
+    </Wrapper>
   );
 };
 
 export default AlcoholTabPage;
+
+const Wrapper = styled.div`
+  ${flexColCss};
+  width: 100%;
+`;
 
 const RegistWrapper = styled.div`
   ${flexRowCss}

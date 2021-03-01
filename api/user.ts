@@ -2,10 +2,11 @@ import axios from "axios";
 import { backUrl } from "configs/environment";
 import { User } from "types";
 
-const url = backUrl + "/user";
+const url = backUrl + "/users";
+const authUrl = backUrl + "/auth";
 
 export const signupApi = async (data: User) => {
-  return await axios.post(url + "/signup", data);
+  return await axios.post(url, data);
 };
 
 export const checkEmailApi = async (email: string) => {
@@ -17,7 +18,7 @@ export const checkEmailApi = async (email: string) => {
 };
 
 export const loginWithEmailApi = async (data: User) => {
-  return await axios.post(url + "/loginLocal", data);
+  return await axios.post(authUrl + "/login", data);
 };
 
 export const logoutApi = async () => {
@@ -35,6 +36,6 @@ export const getUserByIdApi = (id: string) => async () => {
 };
 
 export const changeNickNameApi = async ({ nickname }: { nickname: string }) => {
-  const { data } = await axios.patch(url + "/nickname", { nickname });
+  const { data } = await axios.put(url, { nickname });
   return data;
 };

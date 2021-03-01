@@ -38,4 +38,5 @@ export interface Rating {
   rating: number;
   userId?: string;
   alcoholId: string;
+  user?: User;
 }

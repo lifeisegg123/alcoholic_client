@@ -35,7 +35,7 @@ const AlcoholDetail = ({
   const queryClient = useQueryClient();
   const [user, isLoggedIn] = useUser();
   const hasRating =
-    user && ratings.filter((v) => v.userId === user.id)[0]?.rating;
+    user && ratings.filter((v) => v.user!.id === user.id)[0]?.rating;
   const [rateValue, setRateValue] = useState(0);
 
   useEffect(() => {
