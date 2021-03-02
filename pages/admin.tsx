@@ -10,7 +10,6 @@ import {
   getNotConfirmedListApi,
   updateAndConfirmAlcoholApi,
 } from "api/admin";
-import { backUrl } from "configs/environment";
 import { Alcohol } from "types";
 import AlcoholForm from "components/alcohol/AlcoholForm";
 import styled from "@emotion/styled";
@@ -89,7 +88,7 @@ const admin = ({}) => {
           <ItemWrapper>
             <span onClick={handleModalVisable(item)}>
               <List.Item.Meta
-                avatar={<Avatar src={`${backUrl}/${item.thumbnail}`} />}
+                avatar={<Avatar src={item.thumbnail} />}
                 title={item.name}
                 description={item.desc}
               />

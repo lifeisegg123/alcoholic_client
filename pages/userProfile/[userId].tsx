@@ -7,7 +7,6 @@ import { getUserReviewApi } from "api/review";
 import { changeNickNameApi, getUserByIdApi } from "api/user";
 import { dehydrate } from "react-query/hydration";
 import { useUser } from "hooks/useUser";
-import { backUrl } from "configs/environment";
 import Link from "next/link";
 import { useState } from "react";
 import { css } from "@emotion/react";
@@ -95,7 +94,7 @@ const UserProfile = () => {
               <Link href={`/alcoholDetail/${item.alcohol.id}`}>
                 <Avatar
                   size="large"
-                  src={`${backUrl}/${item.alcohol.thumbnail}`}
+                  src={item.alcohol.thumbnail}
                 />
               </Link>
             }

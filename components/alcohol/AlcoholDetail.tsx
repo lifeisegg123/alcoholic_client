@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import AlcoholInfoBox from "./AlcoholInfoBox";
 import { css } from "@emotion/react";
 import Paragraph from "antd/lib/typography/Paragraph";
-import { backUrl } from "configs/environment";
 import { useMutation, useQueryClient } from "react-query";
 import { addRatingApi, updateRatingApi } from "api/rating";
 import { useUser } from "hooks/useUser";
@@ -72,7 +71,7 @@ const AlcoholDetail = ({
           <Image
             width="100%"
             preview={false}
-            src={`${backUrl}/${thumbnail}`}
+            src={thumbnail}
             alt={name}
           />
           <BottomLineDiv>

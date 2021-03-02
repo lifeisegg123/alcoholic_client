@@ -16,7 +16,6 @@ import ImgCrop from "antd-img-crop";
 
 import { horizontalMarginAuto } from "styles/display";
 import { Alcohol } from "types";
-import { backUrl } from "configs/environment";
 import { categoryOptions } from "./categoryOptions";
 
 type AlcoholForm = {
@@ -55,7 +54,7 @@ const AlcoholForm = ({
 
   return (
     <StyledForm onFinish={handleSubmit} form={form}>
-      {defaultValues && <Image src={`${backUrl}/${defaultValues.thumbnail}`} />}
+      {defaultValues && <Image src={defaultValues.thumbnail} />}
       <Form.Item
         rules={[{ required: true, message: "항목을 입력해주세요." }]}
         label="제품사진"
