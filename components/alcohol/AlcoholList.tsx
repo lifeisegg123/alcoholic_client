@@ -23,7 +23,7 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
     fetchNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    ["alcohollist"],
+    ["alcohollist", categoryId, searchKey],
     getAlcoholsByCategoryIdApi(categoryId as string, sortBy, searchKey),
     {
       getNextPageParam: (lastPage) => lastPage.nextPage,
