@@ -48,7 +48,7 @@ const AppLayout = ({ children }: Props) => {
     router.push(`/search?q=${value}`);
   };
   return (
-    <>
+    <Wrapper>
       <Head>
         <title>주당 이선생</title>
         <meta charSet="utf-8" />
@@ -87,11 +87,16 @@ const AppLayout = ({ children }: Props) => {
       <StyledFooter>
         <span>I'm here to stay (Footer)</span>
       </StyledFooter>
-    </>
+    </Wrapper>
   );
 };
 
 export default AppLayout;
+
+const Wrapper = styled.div`
+  position: relative;
+  min-height: 100vh;
+`;
 
 const StyledHeader = styled(Header)`
   position: sticky;
@@ -113,6 +118,7 @@ const StyledContent = styled(Content)`
   margin: 5vh auto;
   min-height: 70vh;
   width: 90%;
+  padding-bottom: 6rem;
   ${desktopCss({
     width: "60%",
   })};
@@ -120,6 +126,10 @@ const StyledContent = styled(Content)`
 `;
 
 const StyledFooter = styled(Footer)`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 4rem;
   background-color: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
 `;
