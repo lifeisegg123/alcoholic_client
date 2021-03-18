@@ -2,8 +2,15 @@ import { Avatar, Menu } from "antd";
 import Link from "next/link";
 import { User } from "types";
 
-const MenuItem = (user: User, isLoggedIn: boolean, logout: () => {}) => (
-  <Menu>
+const MenuItem = (
+  user: User,
+  isLoggedIn: boolean,
+  logout: () => {},
+  horizontal = false,
+  firstChild: any = null
+) => (
+  <Menu selectedKeys={undefined} mode={horizontal ? "horizontal" : "vertical"}>
+    {firstChild && <Menu.Item>{firstChild}</Menu.Item>}
     {isLoggedIn && user ? (
       <>
         <Menu.Item>

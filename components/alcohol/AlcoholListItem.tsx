@@ -8,7 +8,7 @@ type AlcoholListItemProps = {
 };
 
 const AlcoholListItem = ({
-  alcohol: { id, thumbnail, name },
+  alcohol: { id, thumbnail, name, rating, price },
 }: AlcoholListItemProps) => {
   return (
     <Link href={`/alcoholDetail/${id}`}>
@@ -20,6 +20,16 @@ const AlcoholListItem = ({
         }
       >
         <Card.Meta title={name} />
+        <div css={CardInnerBox}>
+          <span>
+            <h5>가격</h5>
+            <p>{price}</p>
+          </span>
+          <span>
+            <h5>별점</h5>
+            <p>{rating} 점</p>
+          </span>
+        </div>
       </Card>
     </Link>
   );
@@ -36,5 +46,17 @@ const cardCss = css`
   max-height: 200px;
   @media screen and (min-width: 567px) {
     max-height: 500px;
+  }
+`;
+
+const CardInnerBox = css`
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2rem;
   }
 `;

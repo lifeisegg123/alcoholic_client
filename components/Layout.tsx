@@ -6,12 +6,13 @@ import Link from "next/link";
 import Head from "next/head";
 import { desktopCss, flexColCss } from "styles/display";
 import { useQueryClient } from "react-query";
-import { logoutApi } from "api/user";
+/* import { logoutApi } from "api/user"; */
 import { css } from "@emotion/react";
 import { useRouter } from "next/router";
 import MenuItem from "./Menu";
 import { useUser } from "hooks/useUser";
 import axios from "axios";
+import { useWindowSize } from "hooks/useWindowSize";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
+  const { width } = useWindowSize();
   const router = useRouter();
   const [user, isLoggedIn] = useUser();
   const queryClient = useQueryClient();
@@ -51,8 +53,6 @@ const AppLayout = ({ children }: Props) => {
     <Wrapper>
       <Head>
         <title>주당 이선생</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link
           rel="stylesheet"
           type="text/css"
@@ -66,19 +66,34 @@ const AppLayout = ({ children }: Props) => {
           </a>
         </Link>
         <Space size="large" align="center">
-          {showSearchBar ? (
+          {showSearchBar && (
             <Input.Search
               ref={searchRef}
               css={searchCss}
               onSearch={handleSearch}
               onBlur={handleSearchBlur}
             />
-          ) : (
-            <SearchOutlined onClick={handleSearchIconClick} css={iconCss} />
           )}
-          <Dropdown overlay={MenuItem(user, isLoggedIn, logout)}>
-            <MenuOutlined css={iconCss} />
-          </Dropdown>
+          {width! > 768 ? (
+            MenuItem(
+              user,
+              isLoggedIn,
+              logout,
+              true,
+              !showSearchBar && (
+                <SearchOutlined onClick={handleSearchIconClick} css={iconCss} />
+              )
+            )
+          ) : (
+            <>
+              {!showSearchBar && (
+                <SearchOutlined onClick={handleSearchIconClick} css={iconCss} />
+              )}
+              <Dropdown overlay={MenuItem(user, isLoggedIn, logout)}>
+                <MenuOutlined css={iconCss} />
+              </Dropdown>
+            </>
+          )}
         </Space>
       </StyledHeader>
 
@@ -99,6 +114,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledHeader = styled(Header)`
+  padding: 0 4vw;
   position: sticky;
   top: 0;
   display: flex;
