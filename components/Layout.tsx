@@ -28,6 +28,7 @@ const AppLayout = ({ children }: Props) => {
   const queryClient = useQueryClient();
   const logout = async () => {
     localStorage.removeItem("access_token");
+    document.cookie = `access_token=`;
     axios.defaults.headers.common["Authorization"] = null;
     queryClient.setQueryData("user/auth", null);
     queryClient.resetQueries(["user/auth"]);

@@ -19,6 +19,7 @@ const Login = () => {
         data: { access_token },
       } = await loginMutate.mutateAsync(values);
       localStorage.setItem("access_token", access_token);
+      document.cookie = `access_token=${access_token}`;
       axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 
       queryClient.fetchQuery("user/auth");
