@@ -21,7 +21,7 @@ const Signup = () => {
   const checkEmail = async (value: string) => {
     try {
       const { data } = await emailCheckMutate.mutateAsync(value);
-      if (data.isUsed) {
+      if (data) {
         throw new Error("사용중인 이메일입니다.");
       }
       return Promise.resolve();
