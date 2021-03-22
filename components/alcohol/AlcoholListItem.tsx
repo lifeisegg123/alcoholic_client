@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { Image, Card } from "antd";
 import Link from "next/link";
 import { Alcohol } from "types";
+import { currencyFormatter } from "utils/currencyFormatter";
 
 type AlcoholListItemProps = {
   alcohol: Alcohol;
@@ -23,7 +24,7 @@ const AlcoholListItem = ({
         <div css={CardInnerBox}>
           <span>
             <h5>가격</h5>
-            <p>{price}</p>
+            <p>{currencyFormatter(price)}</p>
           </span>
           <span>
             <h5>별점</h5>

@@ -1,4 +1,5 @@
 import { Col, Row, Card } from "antd";
+import { currencyFormatter } from "utils/currencyFormatter";
 
 type InfoContainerProps = {
   title: string;
@@ -46,7 +47,7 @@ const AlcoholInfoBox = ({
         <Col span={12}>
           <InfoContainer
             title="가격 (정확하지 않을 수 있습니다)"
-            desc={price}
+            desc={currencyFormatter(price)}
           />
         </Col>
         {recommandedFood && (

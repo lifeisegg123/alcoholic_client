@@ -8,6 +8,7 @@ import ReviewContainer from "components/review/ReviewContainer";
 import { getAlcoholDetailApi } from "api/alcohol";
 import { Alcohol, Review } from "types";
 import { Space } from "antd";
+import Head from "next/head";
 
 type AlcoholDetailPageProps = {
   alcohol: Alcohol;
@@ -22,13 +23,20 @@ const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
     getAlcoholDetailApi(alcoholId as string)
   );
   return (
-    <Space direction="vertical" size="large">
-      <AlcoholDetail alcohol={alcohol} />
-      <ReviewContainer
-        reviews={alcohol.reviews}
-        alcoholId={alcoholId as string}
-      />
-    </Space>
+    <>
+      <Head>
+        <title>{alcohol.name} | 주당 이선생</title>
+        <meta name="description" content={`${alcohol.name}의 정보`} />
+        <meta property="og:description" content={`${alcohol.name}의 정보`} />
+      </Head>
+      <Space direction="vertical" size="large">
+        <AlcoholDetail alcohol={alcohol} />
+        <ReviewContainer
+          reviews={alcohol.reviews}
+          alcoholId={alcoholId as string}
+        />
+      </Space>
+    </>
   );
 };
 

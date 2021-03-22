@@ -19,7 +19,6 @@ const IndexPage = () => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  console.log(ctx);
   return {
     props: {
       data: null,

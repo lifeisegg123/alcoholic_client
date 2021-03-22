@@ -59,6 +59,10 @@ const AppLayout = ({ children }: Props) => {
           type="text/css"
           href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
       </Head>
       <StyledHeader>
         <Link href="/">
@@ -157,4 +161,6 @@ const iconCss = css`
 const searchCss = css`
   display: flex;
   margin-bottom: 5px;
+  width: 40vw;
+  ${desktopCss({ width: "20vw" })}
 `;
