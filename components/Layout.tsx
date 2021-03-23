@@ -23,7 +23,7 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
-  const [windowSize] = useWindowSize();
+  const [windowSize, isMobile] = useWindowSize();
   const router = useRouter();
   const [user, isLoggedIn] = useUser();
   const queryClient = useQueryClient();
@@ -106,6 +106,26 @@ const AppLayout = ({ children }: Props) => {
 
       <StyledContent>{children}</StyledContent>
 
+      <ADContainer>
+        {isMobile ? (
+          <ins
+            className="kakao_ad_area"
+            style={{ display: "none" }}
+            data-ad-unit="DAN-1vVWssddsNiTgAXu"
+            data-ad-width="320"
+            data-ad-height="100"
+          />
+        ) : (
+          <ins
+            className="kakao_ad_area"
+            style={{ display: "none" }}
+            data-ad-unit="DAN-zjhCjdKxjPvXCvQm"
+            data-ad-width="728"
+            data-ad-height="90"
+          />
+        )}
+      </ADContainer>
+
       <StyledFooter>
         <span>I'm here to stay (Footer)</span>
       </StyledFooter>
@@ -118,6 +138,9 @@ export default AppLayout;
 const Wrapper = styled.div`
   position: relative;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const StyledHeader = styled(Header)`
@@ -137,6 +160,9 @@ const StyledHeader = styled(Header)`
   }
 `;
 
+const ADContainer = styled.div`
+  margin-bottom: 10vh;
+`;
 const StyledContent = styled(Content)`
   margin: 5vh auto;
   min-height: 70vh;
