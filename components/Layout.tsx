@@ -4,6 +4,7 @@ import { Layout, Dropdown, Space, Input } from "antd";
 import { MenuOutlined, SearchOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import Head from "next/head";
+import Image from "next/image";
 import { desktopCss, flexColCss } from "styles/display";
 import { useQueryClient } from "react-query";
 /* import { logoutApi } from "api/user"; */
@@ -66,9 +67,10 @@ const AppLayout = ({ children }: Props) => {
       </Head>
       <StyledHeader>
         <Link href="/">
-          <a>
+          <HeaderTitle>
             <h1>주당 이선생</h1>
-          </a>
+            <Image src="/logo.png" alt="logo" width={50} height={50} />
+          </HeaderTitle>
         </Link>
         <Space size="large" align="center">
           {showSearchBar && (
@@ -163,4 +165,10 @@ const searchCss = css`
   margin-bottom: 5px;
   width: 40vw;
   ${desktopCss({ width: "20vw" })}
+`;
+
+const HeaderTitle = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
