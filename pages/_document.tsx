@@ -16,6 +16,11 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <script
+            data-ad-client="ca-pub-6741004368878134"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          ></script>
           <link
             rel="apple-touch-icon"
             sizes="57x57"
@@ -102,6 +107,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+
           <script
             type="text/javascript"
             src="//t1.daumcdn.net/kas/static/ba.min.js"
