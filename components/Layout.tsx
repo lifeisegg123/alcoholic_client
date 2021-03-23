@@ -22,7 +22,7 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
-  const { width } = useWindowSize();
+  const [windowSize] = useWindowSize();
   const router = useRouter();
   const [user, isLoggedIn] = useUser();
   const queryClient = useQueryClient();
@@ -53,7 +53,7 @@ const AppLayout = ({ children }: Props) => {
   return (
     <Wrapper>
       <Head>
-        <title>주당 이선생</title>
+        <title>주당이선생</title>
         <link
           rel="stylesheet"
           type="text/css"
@@ -79,7 +79,7 @@ const AppLayout = ({ children }: Props) => {
               onBlur={handleSearchBlur}
             />
           )}
-          {width! > 768 ? (
+          {windowSize.width! > 768 ? (
             MenuItem(
               user,
               isLoggedIn,
@@ -138,7 +138,7 @@ const StyledHeader = styled(Header)`
 const StyledContent = styled(Content)`
   margin: 5vh auto;
   min-height: 70vh;
-  width: 90%;
+  width: 95%;
   padding-bottom: 6rem;
   ${desktopCss({
     width: "60%",

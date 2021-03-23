@@ -15,8 +15,10 @@ import AlcoholForm from "components/alcohol/AlcoholForm";
 import styled from "@emotion/styled";
 import { generateFormData } from "utils/generateFormData";
 import { css } from "@emotion/react";
+import { useWindowSize } from "hooks/useWindowSize";
 
 const admin = ({}) => {
+  const [_, isMobile] = useWindowSize();
   const { data, refetch } = useQuery(
     "admin/alcoholList",
     getNotConfirmedListApi
@@ -69,18 +71,20 @@ const admin = ({}) => {
 
   return (
     <>
-      <Modal
-        width="60vw"
-        visible={modalVisible}
-        onCancel={handleModalCancel}
-        footer={null}
-      >
-        <AlcoholForm
-          defaultValues={modalValue!}
-          finishHandler={handleFormSubmit}
-          loading={confirmMutation.isLoading}
-        />
-      </Modal>
+      {modalVisible && (
+        <Modal
+          width={isMobile ? "90vw" : "60vw"}
+          visible={modalVisible}
+          onCancel={handleModalCancel}
+          footer={null}
+        >
+          <AlcoholForm
+            defaultValues={modalValue!}
+            finishHandler={handleFormSubmit}
+            loading={confirmMutation.isLoading}
+          />
+        </Modal>
+      )}
       <List
         css={listCss}
         dataSource={data}

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-export const useWindowSize = () => {
+type ReturnType = [{ width?: number; height?: number }, boolean];
+
+export const useWindowSize = (): ReturnType => {
   const isClient = typeof window === "object";
 
   const getSize = () => {
@@ -10,12 +12,15 @@ export const useWindowSize = () => {
     };
   };
 
-  const [windowSize, setWindowSize] = useState(getSize);
+  const [windowSize, setWindowSize] = useState(getSize());
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     if (isClient) {
       const handleResize = () => {
-        setWindowSize(getSize());
+        const size = getSize();
+        setWindowSize(size);
+        setIsMobile(size.width! < 768);
       };
 
       window.addEventListener("resize", handleResize);
@@ -23,5 +28,5 @@ export const useWindowSize = () => {
     }
   }, []);
 
-  return windowSize;
+  return [windowSize, isMobile];
 };

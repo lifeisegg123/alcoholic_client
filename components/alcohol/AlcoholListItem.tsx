@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { Image, Card } from "antd";
 import Link from "next/link";
+import { desktopCss } from "styles/display";
 import { Alcohol } from "types";
 import { currencyFormatter } from "utils/currencyFormatter";
 
@@ -14,23 +15,26 @@ const AlcoholListItem = ({
   return (
     <Link href={`/alcoholDetail/${id}`}>
       <Card
-        css={cardCss}
         hoverable
         cover={
           <Image css={imgCss} preview={false} src={`${thumbnail}`} alt={name} />
         }
       >
-        <Card.Meta title={name} />
-        <div css={CardInnerBox}>
-          <span>
-            <h5>가격</h5>
-            <p>{currencyFormatter(price)}</p>
-          </span>
-          <span>
-            <h5>별점</h5>
-            <p>{rating} 점</p>
-          </span>
-        </div>
+        <Card.Meta
+          title={name}
+          description={
+            <div css={CardInnerBox}>
+              <span>
+                <h5>가격</h5>
+                <p>{currencyFormatter(price)}</p>
+              </span>
+              <span>
+                <h5>별점</h5>
+                <p>{rating} 점</p>
+              </span>
+            </div>
+          }
+        />
       </Card>
     </Link>
   );
@@ -43,21 +47,19 @@ const imgCss = css`
   min-height: 100px;
 `;
 
-const cardCss = css`
-  max-height: 200px;
-  @media screen and (min-width: 567px) {
-    max-height: 500px;
-  }
-`;
-
 const CardInnerBox = css`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   margin-top: 1rem;
+  ${desktopCss({ "flex-direction": "row" })}
   span {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 2rem;
+    p {
+      white-space: nowrap;
+    }
   }
 `;

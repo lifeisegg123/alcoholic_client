@@ -11,8 +11,10 @@ import { flexColCss, flexRowCss } from "styles/display";
 import { generateFormData } from "utils/generateFormData";
 import { Alcohol } from "types";
 import { getCategoryName } from "utils/getCategoryName";
+import { useWindowSize } from "hooks/useWindowSize";
 
 const AlcoholTabPage = () => {
+  const [_, isMobile] = useWindowSize();
   const [modalVisible, setModalVisible] = useState(false);
   const handleModalButton = () => {
     setModalVisible(true);
@@ -45,7 +47,7 @@ const AlcoholTabPage = () => {
     <Wrapper>
       {modalVisible && (
         <Modal
-          width="60vw"
+          width={isMobile ? "90vw" : "60vw"}
           visible={modalVisible}
           onCancel={handleModalCancel}
           footer={null}

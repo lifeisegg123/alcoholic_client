@@ -1,7 +1,6 @@
 import { QuestionOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { Space } from "antd";
-import { GetStaticProps } from "next";
 import Link from "next/link";
 import { bounce } from "styles/animations";
 
@@ -16,14 +15,6 @@ const IndexPage = () => {
       </Link>
     </Space>
   );
-};
-
-export const getStaticProps: GetStaticProps = async (ctx) => {
-  return {
-    props: {
-      data: null,
-    },
-  };
 };
 
 export default IndexPage;
