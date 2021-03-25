@@ -23,7 +23,7 @@ type Props = {
 };
 
 const AppLayout = ({ children }: Props) => {
-  const [windowSize, isMobile] = useWindowSize();
+  const [windowSize] = useWindowSize();
   const router = useRouter();
   const [user, isLoggedIn] = useUser();
   const queryClient = useQueryClient();
@@ -107,27 +107,22 @@ const AppLayout = ({ children }: Props) => {
       <StyledContent>{children}</StyledContent>
 
       <ADContainer>
-        {isMobile ? (
-          <ins
-            className="kakao_ad_area"
-            style={{ display: "none" }}
-            data-ad-unit="DAN-1vVWssddsNiTgAXu"
-            data-ad-width="320"
-            data-ad-height="100"
-          />
-        ) : (
-          <ins
-            className="kakao_ad_area"
-            style={{ display: "none" }}
-            data-ad-unit="DAN-zjhCjdKxjPvXCvQm"
-            data-ad-width="728"
-            data-ad-height="90"
-          />
-        )}
+        <ins
+          className="kakao_ad_area"
+          style={{ display: "none" }}
+          data-ad-unit="DAN-1vVWssddsNiTgAXu"
+          data-ad-width="320"
+          data-ad-height="100"
+        />
       </ADContainer>
 
       <StyledFooter>
-        <span>I'm here to stay (Footer)</span>
+        <span>
+          <Link href="/개인정보처리방침.html">개인정보처리방침</Link>
+        </span>
+        <span>
+          <Link href="/이용약관.html">이용약관</Link>
+        </span>
       </StyledFooter>
     </Wrapper>
   );
@@ -180,7 +175,9 @@ const StyledFooter = styled(Footer)`
   width: 100%;
   height: 4rem;
   background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
+  span {
+    margin: 0 2rem;
+  }
 `;
 const iconCss = css`
   font-size: 20px;

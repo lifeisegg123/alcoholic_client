@@ -49,8 +49,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
   axios.defaults.headers.common["Authorization"] = "";
   if (ctx.req && cookie) {
-    const [_, token] = cookie.split("=");
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    const cookieList = cookie.split(";");
+    const cookieMap = cookieList.reduce((acc, v) => {
+      const splited = v.split("=");
+      acc[splited[0]] = splited[1];
+      return acc;
+    }, {} as any);
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${cookieMap["access_token"]}`;
   }
 
   try {

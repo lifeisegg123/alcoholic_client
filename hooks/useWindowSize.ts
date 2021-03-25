@@ -13,7 +13,7 @@ export const useWindowSize = (): ReturnType => {
   };
 
   const [windowSize, setWindowSize] = useState(getSize());
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(getSize().width! < 768);
 
   useEffect(() => {
     if (isClient) {
