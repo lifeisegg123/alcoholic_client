@@ -60,7 +60,13 @@ const AlcoholForm = ({
         label="제품사진"
         name="thumbnail"
       >
-        <ImgCrop minZoom={0.1} grid quality={1} rotate>
+        <ImgCrop
+          minZoom={0.1}
+          grid
+          quality={1}
+          rotate
+          cropperProps={{ restrictPosition: false }}
+        >
           <Upload
             accept="image/*"
             listType="picture-card"

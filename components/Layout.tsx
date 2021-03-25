@@ -117,7 +117,12 @@ const AppLayout = ({ children }: Props) => {
       </ADContainer>
 
       <StyledFooter>
-        <span>I'm here to stay (Footer)</span>
+        <span>
+          <Link href="/개인정보처리방침.html">개인정보처리방침</Link>
+        </span>
+        <span>
+          <Link href="/이용약관.html">이용약관</Link>
+        </span>
       </StyledFooter>
     </Wrapper>
   );
@@ -170,7 +175,9 @@ const StyledFooter = styled(Footer)`
   width: 100%;
   height: 4rem;
   background-color: ${({ theme }) => theme.colors.black};
-  color: ${({ theme }) => theme.colors.white};
+  span {
+    margin: 0 2rem;
+  }
 `;
 const iconCss = css`
   font-size: 20px;

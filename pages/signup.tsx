@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import { Button, Form, Input, message } from "antd";
+import Link from "next/link";
 import { desktopCss, horizontalMarginAuto } from "styles/display";
 import { useMutation } from "react-query";
 import { checkEmailApi, getUserApi, signupApi } from "api/user";
@@ -108,9 +109,17 @@ const Signup = () => {
           <Input />
         </Form.Item>
         <Button loading={signupMutate.isLoading} htmlType="submit">
-          회원가입
+          아래 약관에 동의하며 회원가입
         </Button>
       </Form>
+      <PolicyContainer>
+        <span>
+          <Link href="/개인정보처리방침.html">개인정보처리방침</Link>
+        </span>
+        <span>
+          <Link href="/이용약관.html">이용약관</Link>
+        </span>
+      </PolicyContainer>
     </Wrapper>
   );
 };
@@ -161,4 +170,13 @@ const Wrapper = styled.div`
   }
   width: 90%;
   ${desktopCss({ width: "60%" })}
+`;
+
+const PolicyContainer = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  span {
+    width: 50%;
+  }
 `;
