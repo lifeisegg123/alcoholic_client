@@ -36,7 +36,11 @@ const AlcoholDetail = ({
   const hasRating =
     user && ratings.filter((v) => v.user!.id === user.id)[0]?.rating;
   const [rateValue, setRateValue] = useState(0);
+  const [descList, setDescList] = useState(desc.split(";;"));
 
+  useEffect(() => {
+    setDescList(desc.split(";;"));
+  }, [desc]);
   useEffect(() => {
     if (hasRating && hasRating > 0) {
       setRateValue(hasRating);
@@ -68,12 +72,7 @@ const AlcoholDetail = ({
     <Wrapper>
       <Card css={cardCss}>
         <Space direction="vertical" size="large">
-          <Image
-            width="100%"
-            preview={false}
-            src={thumbnail}
-            alt={name}
-          />
+          <Image width="100%" preview={false} src={thumbnail} alt={name} />
           <BottomLineDiv>
             <Space>
               <span>
@@ -102,8 +101,10 @@ const AlcoholDetail = ({
               <Rate allowHalf value={rateValue} onChange={handleRateClick} />
             </a>
           </StyledPopconfirm>
-          <Paragraph ellipsis={{ rows: 2, expandable: true, symbol: "더보기" }}>
-            {desc}
+          <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: "더보기" }}>
+            {descList.map((v) => (
+              <p>{v}</p>
+            ))}
           </Paragraph>
           <AlcoholInfoBox
             alcoholPercentage={alcoholPercentage}
