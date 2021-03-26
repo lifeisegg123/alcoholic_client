@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
-import { List } from "antd";
+import { List, Spin } from "antd";
 import { getAlcoholsByCategoryIdApi } from "api/alcohol";
 import { useEffect, useState } from "react";
 import { useInfiniteQuery } from "react-query";
+import { flexColCss } from "styles/display";
 import { serializeData } from "utils/serializeData";
 import AlcoholListItem from "./AlcoholListItem";
 
@@ -59,6 +60,13 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
   return (
     <List
       loading={isLoading}
+      footer={
+        isFetchingNextPage && (
+          <div css={flexColCss}>
+            <Spin />
+          </div>
+        )
+      }
       dataSource={alcoholList}
       css={listCss}
       grid={{
