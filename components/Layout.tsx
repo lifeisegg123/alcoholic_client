@@ -118,6 +118,12 @@ const AppLayout = ({ children }: Props) => {
 
       <StyledFooter>
         <span>
+          <p>ⓒ 2021 주당 이선생</p>
+        </span>
+        <span>
+          <a href="mailto:leejj2002@naver.com">문의사항: leejj2002@naver.com</a>
+        </span>
+        <span>
           <Link href="/개인정보처리방침.html">개인정보처리방침</Link>
         </span>
         <span>
@@ -156,7 +162,7 @@ const StyledHeader = styled(Header)`
 `;
 
 const ADContainer = styled.div`
-  margin-bottom: 10vh;
+  margin-bottom: 6rem;
 `;
 const StyledContent = styled(Content)`
   margin: 5vh auto;
@@ -171,12 +177,22 @@ const StyledContent = styled(Content)`
 
 const StyledFooter = styled(Footer)`
   position: absolute;
+  padding: 0;
   bottom: 0;
   width: 100%;
-  height: 4rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   background-color: ${({ theme }) => theme.colors.black};
   span {
-    margin: 0 2rem;
+    margin: 0.3rem 2rem;
+    p {
+      color: ${({ theme }) => theme.colors.primary};
+    }
+    a {
+      color: ${({ theme }) => theme.colors.primary};
+    }
   }
 `;
 const iconCss = css`
