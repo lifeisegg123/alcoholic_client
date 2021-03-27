@@ -77,6 +77,10 @@ export const categoryOptions = [
         value: 4400,
         label: "리큐르",
       },
+      {
+        value: 4500,
+        label: "데킬라",
+      },
     ],
   },
   {
