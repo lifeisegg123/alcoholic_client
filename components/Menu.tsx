@@ -146,6 +146,11 @@ const MenuItem = (
             <a>리큐르</a>
           </Link>
         </Menu.Item>
+        <Menu.Item>
+          <Link href="/alcoholCategory/4500">
+            <a>데킬라</a>
+          </Link>
+        </Menu.Item>
       </Menu.SubMenu>
 
       <Menu.SubMenu key="tradition" title="전통주">

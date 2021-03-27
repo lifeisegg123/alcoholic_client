@@ -50,6 +50,7 @@ const AlcoholTabPage = () => {
           width={isMobile ? "90vw" : "60vw"}
           visible={modalVisible}
           onCancel={handleModalCancel}
+          maskClosable={false}
           footer={null}
         >
           <AlcoholForm
