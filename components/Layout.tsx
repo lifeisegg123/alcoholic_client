@@ -96,7 +96,10 @@ const AppLayout = ({ children }: Props) => {
               {!showSearchBar && (
                 <SearchOutlined onClick={handleSearchIconClick} css={iconCss} />
               )}
-              <Dropdown overlay={MenuItem(user, isLoggedIn, logout)}>
+              <Dropdown
+                trigger={["click"]}
+                overlay={MenuItem(user, isLoggedIn, logout)}
+              >
                 <MenuOutlined css={iconCss} />
               </Dropdown>
             </>
