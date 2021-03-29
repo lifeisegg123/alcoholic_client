@@ -28,3 +28,8 @@ export const getAlcoholDetailApi = (id: number | string) => async () => {
   const { data } = await axios.get(`${url}/${id}`);
   return data;
 };
+
+export const getRandomList = async () => {
+  const { data } = await axios.get(`${url}/random-list`);
+  return data;
+};
