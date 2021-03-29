@@ -48,7 +48,6 @@ const AlcoholForm = ({
   const handleSubmit = (values: any) => {
     if (!defaultValues && !image)
       return message.error("이미지를 업로드해주세요.");
-
     finishHandler(values, defaultValues);
   };
 
@@ -96,7 +95,7 @@ const AlcoholForm = ({
         label="설명"
         name="desc"
       >
-        <Input />
+        <Input.TextArea />
       </Form.Item>
       <Form.Item
         rules={[{ required: true, message: "항목을 입력해주세요." }]}
