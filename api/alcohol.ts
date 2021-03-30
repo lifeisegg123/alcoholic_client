@@ -24,8 +24,8 @@ export const getAlcoholsByCategoryIdApi = (
   return data;
 };
 
-export const getAlcoholDetailApi = (id: number | string) => async () => {
-  const { data } = await axios.get(`${url}/${id}`);
+export const getAlcoholDetailApi = (name: string) => async () => {
+  const { data } = await axios.get(`${url}/${encodeURI(name)}`);
   return data;
 };
 
