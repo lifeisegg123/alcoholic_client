@@ -46,7 +46,7 @@ const categoryOptions = [
 ];
 
 axios
-  .get(`http://localhost:5050/alcohols/all`)
+  .get(`https://api.drinklikeafish.xyz/alcohols/all`)
   .then(({ data: alcoholList }) => {
     const date = new Date().toISOString();
 
