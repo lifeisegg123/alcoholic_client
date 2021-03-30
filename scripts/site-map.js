@@ -109,4 +109,6 @@ axios
     const formattedSitemap = formatted(generatedSitemap);
 
     fs.writeFileSync("../public/sitemap.xml", formattedSitemap, "utf8");
-  });
+    console.log("sitemap generated");
+  })
+  .catch((err) => console.log(err));
