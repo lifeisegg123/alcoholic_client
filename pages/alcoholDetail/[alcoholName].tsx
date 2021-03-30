@@ -17,10 +17,10 @@ type AlcoholDetailPageProps = {
 
 const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
   const router = useRouter();
-  const { alcoholId } = router.query;
+  const { alcoholName } = router.query;
   const { data: alcohol } = useQuery(
-    ["alcohol", "detail", alcoholId],
-    getAlcoholDetailApi(alcoholId as string),
+    ["alcohol", "detail", alcoholName],
+    getAlcoholDetailApi(alcoholName as string),
     { staleTime: Infinity, refetchOnWindowFocus: false }
   );
   return (
@@ -34,7 +34,7 @@ const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
         <AlcoholDetail alcohol={alcohol} />
         <ReviewContainer
           reviews={alcohol.reviews}
-          alcoholId={alcoholId as string}
+          alcoholId={alcohol.id as string}
         />
       </Space>
     </>
@@ -42,11 +42,11 @@ const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { alcoholId } = ctx.query;
+  const { alcoholName } = ctx.query;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
-    ["alcohol", "detail", alcoholId],
-    getAlcoholDetailApi(alcoholId as string),
+    ["alcohol", "detail", alcoholName],
+    getAlcoholDetailApi(alcoholName as string),
     { staleTime: Infinity }
   );
 

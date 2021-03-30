@@ -10,10 +10,10 @@ type AlcoholListItemProps = {
 };
 
 const AlcoholListItem = ({
-  alcohol: { id, thumbnail, name, rating, price },
+  alcohol: { thumbnail, name, rating, price },
 }: AlcoholListItemProps) => {
   return (
-    <Link href={`/alcoholDetail/${id}`}>
+    <Link href={`/alcoholDetail/${name}`}>
       <Card
         hoverable
         cover={
