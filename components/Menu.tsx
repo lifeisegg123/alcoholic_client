@@ -186,11 +186,6 @@ const MenuItem = (
         </Menu.Item>
         <Menu.Item>
           <Link href="/alcoholCategory/5600">
-            <a>증류주</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/alcoholCategory/5700">
             <a>리큐르</a>
           </Link>
         </Menu.Item>
