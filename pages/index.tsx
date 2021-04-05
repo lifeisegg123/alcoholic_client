@@ -50,10 +50,12 @@ const IndexPage = () => {
         </div>
         <div>
           <span>
-            <p>우측상단</p>
+            <Link href="/alcoholCategory/0">
+              <a>여기</a>
+            </Link>
           </span>
           <span>
-            <p>메뉴를 확인해 보세요.</p>
+            <p>를 눌러 보세요.</p>
           </span>
         </div>
       </FooterBox>
@@ -92,11 +94,10 @@ const FooterBox = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 3rem;
-  div:last-child {
+  div:last-of-type {
     ${flexRowCss}
-    span:first-child {
-      margin-right: 0.3rem;
-      p {
+    span:first-of-type {
+      a {
         color: ${({ theme }) => theme.colors.primary};
         font-size: 1.2rem;
       }

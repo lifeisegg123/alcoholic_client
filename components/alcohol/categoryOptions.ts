@@ -109,10 +109,6 @@ export const categoryOptions = [
       },
       {
         value: 5600,
-        label: "증류주",
-      },
-      {
-        value: 5700,
         label: "리큐르",
       },
     ],

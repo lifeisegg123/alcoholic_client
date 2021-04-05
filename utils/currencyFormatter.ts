@@ -1,7 +1,7 @@
 export const currencyFormatter = (
   value: string | number,
-  suffix: string = "₩"
+  prefix: string = "₩"
 ) => {
   const reg = /(\d)(?=(\d{3})+(?!\d))/g;
-  return `${String(value).replace(reg, "$1,")} ${suffix}`;
+  return `${prefix} ${String(value).replace(reg, "$1,")}`;
 };

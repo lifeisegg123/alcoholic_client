@@ -21,7 +21,7 @@ const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
   const { data: alcohol } = useQuery(
     ["alcohol", "detail", alcoholName],
     getAlcoholDetailApi(alcoholName as string),
-    { staleTime: Infinity, refetchOnWindowFocus: false }
+    { refetchOnWindowFocus: false, staleTime: 1000 }
   );
   return (
     <>
@@ -46,8 +46,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
     ["alcohol", "detail", alcoholName],
-    getAlcoholDetailApi(alcoholName as string),
-    { staleTime: Infinity }
+    getAlcoholDetailApi(alcoholName as string)
   );
 
   return {
