@@ -102,8 +102,8 @@ const AlcoholDetail = ({
             </a>
           </StyledPopconfirm>
           <Paragraph ellipsis={{ rows: 3, expandable: true, symbol: "더보기" }}>
-            {descList.map((v) => (
-              <p>{v}</p>
+            {descList.map((v, i) => (
+              <p key={`${v}_${i}`}>{v}</p>
             ))}
           </Paragraph>
           <AlcoholInfoBox

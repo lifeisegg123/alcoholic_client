@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 import { Image, Card } from "antd";
 import Link from "next/link";
 import { desktopCss } from "styles/display";
@@ -21,9 +21,10 @@ const AlcoholListItem = ({
         }
       >
         <Card.Meta
+          css={{ textAlign: "center" }}
           title={name}
           description={
-            <div css={CardInnerBox}>
+            <div css={(theme) => CardInnerBox(theme)}>
               <span>
                 <h5>가격</h5>
                 <p>{currencyFormatter(price)}</p>
@@ -47,19 +48,27 @@ const imgCss = css`
   min-height: 100px;
 `;
 
-const CardInnerBox = css`
+const CardInnerBox = (theme: Theme) => css`
   display: flex;
   justify-content: center;
   flex-direction: column;
   margin-top: 1rem;
-  ${desktopCss({ "flex-direction": "row" })}
+  ${desktopCss({ flexDirection: "row" })};
   span {
+    :first-of-type {
+      border-right: none;
+    }
+    border: 1px solid ${theme.colors.grey};
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    h5 {
+      margin-top: 0.5rem;
+    }
     p {
       white-space: nowrap;
+      margin-bottom: 0.5rem;
     }
   }
 `;
