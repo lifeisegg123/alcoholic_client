@@ -11,9 +11,14 @@ import { useUser } from "hooks/useUser";
 type ReviewContainerProps = {
   reviews: Review[];
   alcoholId: string;
+  alcoholName: string;
 };
 
-const ReviewContainer = ({ reviews, alcoholId }: ReviewContainerProps) => {
+const ReviewContainer = ({
+  reviews,
+  alcoholId,
+  alcoholName,
+}: ReviewContainerProps) => {
   const queryClient = useQueryClient();
   const [user, isLoggedIn] = useUser();
 
@@ -21,7 +26,7 @@ const ReviewContainer = ({ reviews, alcoholId }: ReviewContainerProps) => {
   const submitReview = async (review: string) => {
     try {
       await addReviewMutation.mutateAsync({ desc: review, alcoholId });
-      queryClient.fetchQuery(["alcohol", "detail", alcoholId]);
+      queryClient.fetchQuery(["alcohol", "detail", alcoholName]);
       message.success("리뷰가 등록되었습니다.");
     } catch (error) {
       console.error(error);

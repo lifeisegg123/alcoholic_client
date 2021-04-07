@@ -35,6 +35,7 @@ const AlcoholDetailPage = ({}: AlcoholDetailPageProps) => {
         <ReviewContainer
           reviews={alcohol.reviews}
           alcoholId={alcohol.id as string}
+          alcoholName={alcoholName as string}
         />
       </Space>
     </>
