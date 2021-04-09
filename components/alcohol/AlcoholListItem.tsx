@@ -51,15 +51,13 @@ const imgCss = css`
 const CardInnerBox = (theme: Theme) => css`
   display: flex;
   justify-content: center;
-  flex-direction: column;
   margin-top: 1rem;
-  ${desktopCss({ flexDirection: "row" })};
   span {
     :first-of-type {
       border-right: none;
     }
     border: 1px solid ${theme.colors.grey};
-    width: 100%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
