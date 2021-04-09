@@ -71,8 +71,8 @@ const AlcoholList = ({ categoryId, sortBy, searchKey }: AlcoholListProps) => {
       css={listCss}
       grid={{
         gutter: 16,
-        xs: 2,
-        sm: 2,
+        xs: 1,
+        sm: 1,
         md: 3,
         lg: 3,
         xl: 3,

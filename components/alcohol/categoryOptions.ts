@@ -93,22 +93,18 @@ export const categoryOptions = [
       },
       {
         value: 5200,
-        label: "청주",
+        label: "청주 | 약주",
       },
       {
         value: 5300,
-        label: "약주",
-      },
-      {
-        value: 5400,
         label: "과실주",
       },
       {
-        value: 5500,
+        value: 5400,
         label: "소주",
       },
       {
-        value: 5600,
+        value: 5500,
         label: "리큐르",
       },
     ],

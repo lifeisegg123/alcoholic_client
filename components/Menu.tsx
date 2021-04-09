@@ -166,26 +166,21 @@ const MenuItem = (
         </Menu.Item>
         <Menu.Item>
           <Link href="/alcoholCategory/5200">
-            <a>청주</a>
+            <a>청주 | 약주</a>
           </Link>
         </Menu.Item>
         <Menu.Item>
           <Link href="/alcoholCategory/5300">
-            <a>약주</a>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <Link href="/alcoholCategory/5400">
             <a>과실주</a>
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Link href="/alcoholCategory/5500">
+          <Link href="/alcoholCategory/5400">
             <a>소주</a>
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <Link href="/alcoholCategory/5600">
+          <Link href="/alcoholCategory/5500">
             <a>리큐르</a>
           </Link>
         </Menu.Item>
