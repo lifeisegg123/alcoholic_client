@@ -51,6 +51,7 @@ const AppLayout = ({ children }: Props) => {
     if (!value) return;
     router.push(`/search?q=${value}`);
   };
+  console.log("windowSize", windowSize);
   return (
     <Wrapper>
       <Head>

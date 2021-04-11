@@ -1,7 +1,6 @@
 import { css, Theme } from "@emotion/react";
 import { Image, Card } from "antd";
 import Link from "next/link";
-import { desktopCss } from "styles/display";
 import { Alcohol } from "types";
 import { currencyFormatter } from "utils/currencyFormatter";
 
