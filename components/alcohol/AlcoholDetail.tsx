@@ -61,7 +61,7 @@ const AlcoholDetail = ({
         rating: rateValue,
         alcoholId: id!,
       });
-      queryClient.fetchQuery(["alcohol", "detail", String(id)]);
+      queryClient.fetchQuery(["alcohol", "detail", name]);
       message.success("별점이 등록되었습니다.");
     } catch (error) {
       console.error(error);

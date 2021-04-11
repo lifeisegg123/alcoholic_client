@@ -60,7 +60,8 @@ axios
               "%20"
             )}</loc>
                 <lastmod>${date}</lastmod>
-              </url>
+                <priority>1.00</priority>
+          </url>
             `;
           })
           .join("")}
